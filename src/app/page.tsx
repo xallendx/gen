@@ -284,11 +284,12 @@ function LanguageToggle({ isGamingMode }: { isGamingMode: boolean }) {
   )
 }
 
-function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRoles }: { 
+function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRoles, isGamingMode }: { 
   open: boolean
   onOpenChange: (open: boolean) => void
   customRoles: Role[]
   customFunctionalRoles: FunctionalRole[]
+  isGamingMode: boolean
 }) {
   const { t } = useLanguage()
   const getDayName = useDayName()
@@ -297,9 +298,9 @@ function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRole
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto custom-scrollbar">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-3 text-lg font-bold text-[#ffd700]">
-            <div className="w-8 h-8 border-2 border-[#ffd700] bg-[#12121a] flex items-center justify-center">
-              <Award className="w-5 h-5 text-[#ffd700]" />
+          <DialogTitle className={`flex items-center gap-3 text-lg font-bold ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>
+            <div className={`w-8 h-8 border-2 flex items-center justify-center ${isGamingMode ? 'border-[#ffd700] bg-[#12121a]' : 'border-amber-500 bg-amber-50'}`}>
+              <Award className={`w-5 h-5 ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`} />
             </div>
             {t('roleSystem')}
           </DialogTitle>
@@ -308,7 +309,7 @@ function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRole
         <div className="space-y-6 mt-4">
           {/* Role Hierarchy */}
           <section>
-            <h3 className="text-base font-bold mb-3 flex items-center gap-2 text-[#ff00ff]">
+            <h3 className={`text-base font-bold mb-3 flex items-center gap-2 ${isGamingMode ? 'text-[#ff00ff]' : 'text-fuchsia-600'}`}>
               <Sword className="w-4 h-4" />
               {t('roleHierarchy')}
             </h3>
@@ -319,26 +320,26 @@ function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRole
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="p-3 border-3 border-[#2a2a4e] bg-[#12121a] hover:border-[#00fff7] transition-colors relative"
+                  className={`p-3 border-3 transition-colors relative ${isGamingMode ? 'border-[#2a2a4e] bg-[#12121a] hover:border-[#00fff7]' : 'border-gray-200 bg-gray-50 hover:border-gray-400'}`}
                 >
-                  <div className="absolute top-0 left-0 w-4 h-4 border-b-2 border-r-2 border-[#2a2a4e] bg-[#0a0a0f]" />
-                  <div className="absolute top-0 right-0 w-4 h-4 border-b-2 border-l-2 border-[#2a2a4e] bg-[#0a0a0f]" />
-                  <div className="absolute bottom-0 left-0 w-4 h-4 border-t-2 border-r-2 border-[#2a2a4e] bg-[#0a0a0f]" />
-                  <div className="absolute bottom-0 right-0 w-4 h-4 border-t-2 border-l-2 border-[#2a2a4e] bg-[#0a0a0f]" />
+                  <div className={`absolute top-0 left-0 w-4 h-4 border-b-2 border-r-2 ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f]' : 'border-gray-200 bg-white'}`} />
+                  <div className={`absolute top-0 right-0 w-4 h-4 border-b-2 border-l-2 ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f]' : 'border-gray-200 bg-white'}`} />
+                  <div className={`absolute bottom-0 left-0 w-4 h-4 border-t-2 border-r-2 ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f]' : 'border-gray-200 bg-white'}`} />
+                  <div className={`absolute bottom-0 right-0 w-4 h-4 border-t-2 border-l-2 ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f]' : 'border-gray-200 bg-white'}`} />
                   
                   <div className="flex items-center gap-3">
                     {role.emoji && <span className="text-2xl float">{role.emoji}</span>}
                     <div className="flex-1">
-                      <h4 className="text-sm font-bold" style={{ color: role.color, textShadow: `0 0 10px ${role.color}, 0 0 20px ${role.color}40` }}>
+                      <h4 className="text-sm font-bold" style={{ color: role.color, textShadow: isGamingMode ? `0 0 10px ${role.color}, 0 0 20px ${role.color}40` : 'none' }}>
                         {role.name}
                       </h4>
                       <div className="mt-1 text-base">
-                        <span className="text-[#8888aa]">{t('requirements')}: </span>
-                        <span className="text-[#b8b8c8]">{role.requirements}</span>
+                        <span className={isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}>{t('requirements')}: </span>
+                        <span className={isGamingMode ? 'text-[#b8b8c8]' : 'text-gray-700'}>{role.requirements}</span>
                       </div>
                       <div className="text-base">
-                        <span className="text-[#8888aa]">{t('perks')}: </span>
-                        <span className="text-[#b8b8c8]">{role.perks}</span>
+                        <span className={isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}>{t('perks')}: </span>
+                        <span className={isGamingMode ? 'text-[#b8b8c8]' : 'text-gray-700'}>{role.perks}</span>
                       </div>
                     </div>
                   </div>
@@ -349,15 +350,15 @@ function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRole
 
           {/* Functional Roles */}
           <section>
-            <h3 className="text-base font-bold mb-3 flex items-center gap-2 text-[#00fff7]">
+            <h3 className={`text-base font-bold mb-3 flex items-center gap-2 ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`}>
               <Shield className="w-4 h-4" />
               {t('functionalRoles')}
             </h3>
             <div className="grid grid-cols-2 gap-2">
               {customFunctionalRoles.map((role) => (
-                <div key={role.name} className="p-2 border-3 border-[#2a2a4e] bg-[#12121a] hover:border-[#00fff7] transition-colors">
-                  <h4 className="text-sm font-bold text-[#00fff7]">{role.name}</h4>
-                  <p className="text-sm text-[#b8b8c8]">{role.requirements}</p>
+                <div key={role.name} className={`p-2 border-3 transition-colors ${isGamingMode ? 'border-[#2a2a4e] bg-[#12121a] hover:border-[#00fff7]' : 'border-gray-200 bg-gray-50 hover:border-cyan-400'}`}>
+                  <h4 className={`text-sm font-bold ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`}>{role.name}</h4>
+                  <p className={`text-sm ${isGamingMode ? 'text-[#b8b8c8]' : 'text-gray-600'}`}>{role.requirements}</p>
                 </div>
               ))}
             </div>
@@ -365,17 +366,17 @@ function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRole
 
           {/* XP & POAP Sources */}
           <section>
-            <h3 className="text-base font-bold mb-3 flex items-center gap-2 text-[#ffd700]">
+            <h3 className={`text-base font-bold mb-3 flex items-center gap-2 ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>
               <Trophy className="w-4 h-4" />
               {t('xpPoapSources')}
             </h3>
             <div className="grid grid-cols-2 gap-2">
               {xpPoapSources.map((source) => (
-                <div key={source.source} className="flex items-center justify-between p-2 border-3 border-[#2a2a4e] bg-[#12121a]">
-                  <span className="text-sm text-[#b8b8c8]">{source.source}</span>
+                <div key={source.source} className={`flex items-center justify-between p-2 border-3 ${isGamingMode ? 'border-[#2a2a4e] bg-[#12121a]' : 'border-gray-200 bg-gray-50'}`}>
+                  <span className={`text-sm ${isGamingMode ? 'text-[#b8b8c8]' : 'text-gray-700'}`}>{source.source}</span>
                   <div className="flex gap-1">
-                    {source.xp && <span className="text-xs px-2 py-0.5 border-2 border-[#39ff14] text-[#39ff14] font-bold">XP</span>}
-                    {source.poap && <span className="text-xs px-2 py-0.5 border-2 border-[#ff00ff] text-[#ff00ff] font-bold">POAP</span>}
+                    {source.xp && <span className={`text-xs px-2 py-0.5 border-2 font-bold ${isGamingMode ? 'border-[#39ff14] text-[#39ff14]' : 'border-green-500 text-green-600'}`}>XP</span>}
+                    {source.poap && <span className={`text-xs px-2 py-0.5 border-2 font-bold ${isGamingMode ? 'border-[#ff00ff] text-[#ff00ff]' : 'border-fuchsia-500 text-fuchsia-600'}`}>POAP</span>}
                   </div>
                 </div>
               ))}
@@ -384,7 +385,7 @@ function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRole
 
           {/* Monthly Contributor Highlights */}
           <section>
-            <h3 className="text-base font-bold mb-3 flex items-center gap-2 text-[#00fff7]">
+            <h3 className={`text-base font-bold mb-3 flex items-center gap-2 ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`}>
               <Star className="w-4 h-4" />
               {t('monthlyContributor')}
             </h3>
@@ -395,11 +396,11 @@ function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRole
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="p-3 border-3 border-[#2a2a4e] bg-[#12121a] hover:border-[#ff00ff] transition-colors"
+                  className={`p-3 border-3 transition-colors ${isGamingMode ? 'border-[#2a2a4e] bg-[#12121a] hover:border-[#ff00ff]' : 'border-gray-200 bg-gray-50 hover:border-fuchsia-400'}`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-bold text-[#ff00ff]">{highlight.category}</span>
-                    <span className="text-xs font-bold text-[#ffd700]">
+                    <span className={`text-sm font-bold ${isGamingMode ? 'text-[#ff00ff]' : 'text-fuchsia-600'}`}>{highlight.category}</span>
+                    <span className={`text-xs font-bold ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>
                       {t('rank')} #{index + 1}
                     </span>
                   </div>
@@ -407,7 +408,7 @@ function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRole
                     {highlight.rewards.map((reward, idx) => (
                       <span 
                         key={idx}
-                        className="text-xs px-2 py-0.5 bg-[#1a1a2e] text-[#00fff7] border border-[#2a2a4e]"
+                        className={`text-xs px-2 py-0.5 border ${isGamingMode ? 'bg-[#1a1a2e] text-[#00fff7] border-[#2a2a4e]' : 'bg-cyan-50 text-cyan-700 border-cyan-200'}`}
                       >
                         {reward}
                       </span>
@@ -420,16 +421,16 @@ function RoleSystemModal({ open, onOpenChange, customRoles, customFunctionalRole
 
           {/* Important Notes */}
           <section>
-            <h3 className="text-base font-bold mb-3 text-[#ffff00] flex items-center gap-2">
-              <Flame className="w-4 h-4 text-[#ffff00]" />
+            <h3 className={`text-base font-bold mb-3 flex items-center gap-2 ${isGamingMode ? 'text-[#ffff00]' : 'text-yellow-600'}`}>
+              <Flame className="w-4 h-4" />
               {t('importantNotes')}
             </h3>
-            <div className="p-3 border-3 border-[#ffd700] bg-[#12121a]">
+            <div className={`p-3 border-3 ${isGamingMode ? 'border-[#ffd700] bg-[#12121a]' : 'border-amber-300 bg-amber-50'}`}>
               <ul className="space-y-1">
                 {importantNotes.map((note, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-sm">
-                    <span className="text-[#ffd700] font-bold">&gt;</span>
-                    <span className="text-[#b8b8c8]">{note}</span>
+                    <span className={`font-bold ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>&gt;</span>
+                    <span className={isGamingMode ? 'text-[#b8b8c8]' : 'text-gray-700'}>{note}</span>
                   </li>
                 ))}
               </ul>
@@ -970,17 +971,19 @@ function NotificationBanner({ message, onClose }: { message: string; onClose: ()
 function PasswordModal({ 
   open, 
   onOpenChange, 
-  onSuccess 
+  onSuccess,
+  isGamingMode
 }: { 
   open: boolean
   onOpenChange: (open: boolean) => void
   onSuccess: () => void
+  isGamingMode: boolean
 }) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   
-  // Default password is 'admin123' - stored in localStorage for customization
+  // Password is stored in localStorage for customization
   const correctPassword = typeof window !== 'undefined' 
     ? localStorage.getItem('genlayer-admin-password') || 'admin123'
     : 'admin123'
@@ -999,44 +1002,43 @@ function PasswordModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-3 text-lg font-bold text-[#ffd700]">
-            <div className="w-8 h-8 border-2 border-[#ffd700] bg-[#12121a] flex items-center justify-center">
-              <Lock className="w-5 h-5 text-[#ffd700]" />
+          <DialogTitle className={`flex items-center gap-3 text-lg font-bold ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>
+            <div className={`w-8 h-8 border-2 flex items-center justify-center ${isGamingMode ? 'border-[#ffd700] bg-[#12121a]' : 'border-amber-500 bg-amber-50'}`}>
+              <Lock className={`w-5 h-5 ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`} />
             </div>
             Admin Access
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
-          <p className="text-sm text-[#8888aa]">Enter admin password to access the admin panel.</p>
+          <p className={`text-sm ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-600'}`}>Enter admin password to access the admin panel.</p>
           <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => { setPassword(e.target.value); setError('') }}
               onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-              className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-3 text-sm focus:border-[#ffd700] outline-none pr-10"
+              className={`w-full border-2 p-3 text-sm outline-none pr-10 ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#ffd700]' : 'bg-white border-gray-300 text-gray-900 focus:border-amber-500'}`}
               placeholder="Enter password..."
               autoFocus
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8888aa] hover:text-white"
+              className={`absolute right-3 top-1/2 -translate-y-1/2 ${isGamingMode ? 'text-[#8888aa] hover:text-white' : 'text-gray-400 hover:text-gray-600'}`}
             >
               {showPassword ? <Unlock className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
             </button>
           </div>
-          {error && <p className="text-sm text-[#ff0040]">{error}</p>}
+          {error && <p className="text-sm text-red-500">{error}</p>}
           <div className="flex gap-2">
-            <Button variant="outline" className="flex-1 border-2 border-[#8888aa] text-[#8888aa]" onClick={() => onOpenChange(false)}>
+            <Button variant="outline" className={`flex-1 border-2 ${isGamingMode ? 'border-[#8888aa] text-[#8888aa]' : 'border-gray-300 text-gray-600'}`} onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button className="flex-1 bg-[#ffd700] text-[#0a0a0f] font-bold" onClick={handleSubmit}>
+            <Button className={`flex-1 font-bold ${isGamingMode ? 'bg-[#ffd700] text-[#0a0a0f]' : 'bg-amber-500 text-white'}`} onClick={handleSubmit}>
               <Key className="w-4 h-4 mr-2" />
               Unlock
             </Button>
           </div>
-          <p className="text-xs text-[#666688] text-center">Default password: admin123</p>
         </div>
       </DialogContent>
     </Dialog>
@@ -1062,8 +1064,12 @@ function AdminPanelModal({
   onExportData,
   onImportData,
   onResetToDefault,
-  announcementText,
-  onUpdateAnnouncement
+  announcementTexts,
+  onAddAnnouncement,
+  onEditAnnouncement,
+  onDeleteAnnouncement,
+  onReorderAnnouncements,
+  isGamingMode
 }: { 
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -1082,8 +1088,12 @@ function AdminPanelModal({
   onExportData: () => void
   onImportData: (data: { events: Event[], roles: Role[], functionalRoles: FunctionalRole[] }) => void
   onResetToDefault: () => void
-  announcementText: string
-  onUpdateAnnouncement: (text: string) => void
+  announcementTexts: string[]
+  onAddAnnouncement: (text: string) => void
+  onEditAnnouncement: (index: number, text: string) => void
+  onDeleteAnnouncement: (index: number) => void
+  onReorderAnnouncements: (texts: string[]) => void
+  isGamingMode: boolean
 }) {
   const { t } = useLanguage()
   const getDayName = useDayName()
@@ -1102,6 +1112,9 @@ function AdminPanelModal({
     onConfirm: () => void
     variant: 'danger' | 'warning' | 'info'
   }>({ open: false, title: '', message: '', onConfirm: () => {}, variant: 'danger' })
+  
+  const [editingAnnouncement, setEditingAnnouncement] = useState<number | null>(null)
+  const [newAnnouncementText, setNewAnnouncementText] = useState('')
   
   const showConfirmDialog = (title: string, message: string, onConfirm: () => void, variant: 'danger' | 'warning' | 'info' = 'danger') => {
     setConfirmDialog({ open: true, title, message, onConfirm, variant })
@@ -1186,7 +1199,13 @@ function AdminPanelModal({
     reader.onload = (event) => {
       try {
         const data = JSON.parse(event.target?.result as string)
-        if (data.events && data.roles && data.functionalRoles) {
+        // Validate data structure
+        if (
+          data &&
+          Array.isArray(data.events) &&
+          Array.isArray(data.roles) &&
+          Array.isArray(data.functionalRoles)
+        ) {
           showConfirmDialog(
             'Import Data',
             `This will replace all current data with ${data.events.length} events, ${data.roles.length} roles, and ${data.functionalRoles.length} functional roles. Continue?`,
@@ -1197,10 +1216,14 @@ function AdminPanelModal({
             'warning'
           )
         } else {
-          alert('Invalid file format. Expected { events, roles, functionalRoles }')
+          alert('Invalid file format. Expected { events: [], roles: [], functionalRoles: [] }')
         }
       } catch (err) {
-        alert('Failed to parse JSON file')
+        // Log error for debugging
+        if (err instanceof Error) {
+          console.error('[Import] Failed to parse JSON:', err.message)
+        }
+        alert('Failed to parse JSON file. Please check the file format.')
       }
     }
     reader.readAsText(file)
@@ -1340,19 +1363,19 @@ function AdminPanelModal({
     <Dialog open={open} onOpenChange={(v) => { onOpenChange(v); resetForm() }}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-3 text-lg font-bold text-[#ffd700]">
-            <div className="w-8 h-8 border-2 border-[#ffd700] bg-[#12121a] flex items-center justify-center">
-              <Settings className="w-5 h-5 text-[#ffd700]" />
+          <DialogTitle className={`flex items-center gap-3 text-lg font-bold ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>
+            <div className={`w-8 h-8 border-2 flex items-center justify-center ${isGamingMode ? 'border-[#ffd700] bg-[#12121a]' : 'border-amber-500 bg-amber-50'}`}>
+              <Settings className={`w-5 h-5 ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`} />
             </div>
             ⚙️ Admin Panel
           </DialogTitle>
         </DialogHeader>
 
         {/* Tabs */}
-        <div className="flex gap-1 mt-4 border-b-2 border-[#2a2a4e] pb-2 flex-wrap">
+        <div className={`flex gap-1 mt-4 border-b-2 pb-2 flex-wrap ${isGamingMode ? 'border-[#2a2a4e]' : 'border-gray-200'}`}>
           <Button
             size="sm"
-            className={`gap-2 font-bold text-xs ${activeTab === 'dashboard' ? 'bg-[#ffd700] text-[#0a0a0f]' : 'bg-transparent text-[#8888aa] hover:text-[#ffd700]'}`}
+            className={`gap-2 font-bold text-xs ${activeTab === 'dashboard' ? (isGamingMode ? 'bg-[#ffd700] text-[#0a0a0f]' : 'bg-amber-500 text-white') : (isGamingMode ? 'bg-transparent text-[#8888aa] hover:text-[#ffd700]' : 'bg-transparent text-gray-500 hover:text-amber-600')}`}
             onClick={() => { setActiveTab('dashboard'); resetForm(); }}
           >
             <BarChart3 className="w-4 h-4" />
@@ -1360,7 +1383,7 @@ function AdminPanelModal({
           </Button>
           <Button
             size="sm"
-            className={`gap-2 font-bold text-xs ${activeTab === 'events' ? 'bg-[#00fff7] text-[#0a0a0f]' : 'bg-transparent text-[#8888aa] hover:text-[#00fff7]'}`}
+            className={`gap-2 font-bold text-xs ${activeTab === 'events' ? (isGamingMode ? 'bg-[#00fff7] text-[#0a0a0f]' : 'bg-cyan-500 text-white') : (isGamingMode ? 'bg-transparent text-[#8888aa] hover:text-[#00fff7]' : 'bg-transparent text-gray-500 hover:text-cyan-600')}`}
             onClick={() => { setActiveTab('events'); resetForm(); }}
           >
             <Calendar className="w-4 h-4" />
@@ -1368,7 +1391,7 @@ function AdminPanelModal({
           </Button>
           <Button
             size="sm"
-            className={`gap-2 font-bold text-xs ${activeTab === 'roles' ? 'bg-[#ff00ff] text-white' : 'bg-transparent text-[#8888aa] hover:text-[#ff00ff]'}`}
+            className={`gap-2 font-bold text-xs ${activeTab === 'roles' ? (isGamingMode ? 'bg-[#ff00ff] text-white' : 'bg-fuchsia-500 text-white') : (isGamingMode ? 'bg-transparent text-[#8888aa] hover:text-[#ff00ff]' : 'bg-transparent text-gray-500 hover:text-fuchsia-600')}`}
             onClick={() => { setActiveTab('roles'); resetForm(); }}
           >
             <Award className="w-4 h-4" />
@@ -1376,7 +1399,7 @@ function AdminPanelModal({
           </Button>
           <Button
             size="sm"
-            className={`gap-2 font-bold text-xs ${activeTab === 'functional' ? 'bg-[#39ff14] text-[#0a0a0f]' : 'bg-transparent text-[#8888aa] hover:text-[#39ff14]'}`}
+            className={`gap-2 font-bold text-xs ${activeTab === 'functional' ? (isGamingMode ? 'bg-[#39ff14] text-[#0a0a0f]' : 'bg-green-500 text-white') : (isGamingMode ? 'bg-transparent text-[#8888aa] hover:text-[#39ff14]' : 'bg-transparent text-gray-500 hover:text-green-600')}`}
             onClick={() => { setActiveTab('functional'); resetForm(); }}
           >
             <Shield className="w-4 h-4" />
@@ -1384,7 +1407,7 @@ function AdminPanelModal({
           </Button>
           <Button
             size="sm"
-            className={`gap-2 font-bold text-xs ${activeTab === 'settings' ? 'bg-[#ff6b35] text-white' : 'bg-transparent text-[#8888aa] hover:text-[#ff6b35]'}`}
+            className={`gap-2 font-bold text-xs ${activeTab === 'settings' ? (isGamingMode ? 'bg-[#ff6b35] text-white' : 'bg-orange-500 text-white') : (isGamingMode ? 'bg-transparent text-[#8888aa] hover:text-[#ff6b35]' : 'bg-transparent text-gray-500 hover:text-orange-600')}`}
             onClick={() => { setActiveTab('settings'); resetForm(); }}
           >
             <Bell className="w-4 h-4" />
@@ -1398,39 +1421,39 @@ function AdminPanelModal({
             <div className="space-y-4">
               {/* Statistics Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <div className="p-4 border-3 border-[#00fff7] bg-[#12121a] text-center">
-                  <Calendar className="w-6 h-6 text-[#00fff7] mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-[#00fff7]">{stats.totalEvents}</div>
-                  <div className="text-xs text-[#8888aa]">Total Events</div>
+                <div className={`p-4 border-3 text-center ${isGamingMode ? 'border-[#00fff7] bg-[#12121a]' : 'border-cyan-300 bg-cyan-50'}`}>
+                  <Calendar className={`w-6 h-6 mx-auto mb-2 ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`} />
+                  <div className={`text-2xl font-bold ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`}>{stats.totalEvents}</div>
+                  <div className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Total Events</div>
                 </div>
-                <div className="p-4 border-3 border-[#ff00ff] bg-[#12121a] text-center">
-                  <Award className="w-6 h-6 text-[#ff00ff] mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-[#ff00ff]">{stats.totalRoles}</div>
-                  <div className="text-xs text-[#8888aa]">Roles</div>
+                <div className={`p-4 border-3 text-center ${isGamingMode ? 'border-[#ff00ff] bg-[#12121a]' : 'border-fuchsia-300 bg-fuchsia-50'}`}>
+                  <Award className={`w-6 h-6 mx-auto mb-2 ${isGamingMode ? 'text-[#ff00ff]' : 'text-fuchsia-600'}`} />
+                  <div className={`text-2xl font-bold ${isGamingMode ? 'text-[#ff00ff]' : 'text-fuchsia-600'}`}>{stats.totalRoles}</div>
+                  <div className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Roles</div>
                 </div>
-                <div className="p-4 border-3 border-[#39ff14] bg-[#12121a] text-center">
-                  <Shield className="w-6 h-6 text-[#39ff14] mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-[#39ff14]">{stats.totalFunctionalRoles}</div>
-                  <div className="text-xs text-[#8888aa]">Functional</div>
+                <div className={`p-4 border-3 text-center ${isGamingMode ? 'border-[#39ff14] bg-[#12121a]' : 'border-green-300 bg-green-50'}`}>
+                  <Shield className={`w-6 h-6 mx-auto mb-2 ${isGamingMode ? 'text-[#39ff14]' : 'text-green-600'}`} />
+                  <div className={`text-2xl font-bold ${isGamingMode ? 'text-[#39ff14]' : 'text-green-600'}`}>{stats.totalFunctionalRoles}</div>
+                  <div className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Functional</div>
                 </div>
-                <div className="p-4 border-3 border-[#ffd700] bg-[#12121a] text-center">
-                  <Star className="w-6 h-6 text-[#ffd700] mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-[#ffd700]">{stats.specialEvents}</div>
-                  <div className="text-xs text-[#8888aa]">Special Events</div>
+                <div className={`p-4 border-3 text-center ${isGamingMode ? 'border-[#ffd700] bg-[#12121a]' : 'border-amber-300 bg-amber-50'}`}>
+                  <Star className={`w-6 h-6 mx-auto mb-2 ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`} />
+                  <div className={`text-2xl font-bold ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>{stats.specialEvents}</div>
+                  <div className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Special Events</div>
                 </div>
               </div>
 
               {/* Events by Day */}
-              <div className="p-4 border-3 border-[#2a2a4e] bg-[#12121a]">
-                <h3 className="text-sm font-bold text-[#00fff7] mb-3 flex items-center gap-2">
+              <div className={`p-4 border-3 ${isGamingMode ? 'border-[#2a2a4e] bg-[#12121a]' : 'border-gray-200 bg-gray-50'}`}>
+                <h3 className={`text-sm font-bold mb-3 flex items-center gap-2 ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`}>
                   <BarChart3 className="w-4 h-4" />
                   Events by Day
                 </h3>
                 <div className="grid grid-cols-7 gap-1">
                   {stats.eventsByDay.map(({ day, count }) => (
-                    <div key={day} className="text-center p-2 border-2 border-[#2a2a4e] bg-[#0a0a0f]">
-                      <div className="text-xs text-[#8888aa]">{day.slice(0, 3)}</div>
-                      <div className="text-lg font-bold text-[#00fff7]">{count}</div>
+                    <div key={day} className={`text-center p-2 border-2 ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f]' : 'border-gray-200 bg-white'}`}>
+                      <div className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>{day.slice(0, 3)}</div>
+                      <div className={`text-lg font-bold ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`}>{count}</div>
                     </div>
                   ))}
                 </div>
@@ -1438,29 +1461,29 @@ function AdminPanelModal({
 
               {/* Additional Stats */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 border-3 border-[#ff00ff] bg-[#12121a]">
-                  <div className="text-xs text-[#8888aa]">Events with POAP</div>
-                  <div className="text-xl font-bold text-[#ff00ff]">{stats.eventsWithPOAP}</div>
+                <div className={`p-3 border-3 ${isGamingMode ? 'border-[#ff00ff] bg-[#12121a]' : 'border-fuchsia-300 bg-fuchsia-50'}`}>
+                  <div className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Events with POAP</div>
+                  <div className={`text-xl font-bold ${isGamingMode ? 'text-[#ff00ff]' : 'text-fuchsia-600'}`}>{stats.eventsWithPOAP}</div>
                 </div>
-                <div className="p-3 border-3 border-[#00fff7] bg-[#12121a]">
-                  <div className="text-xs text-[#8888aa]">Events with Insight</div>
-                  <div className="text-xl font-bold text-[#00fff7]">{stats.eventsWithInsight}</div>
+                <div className={`p-3 border-3 ${isGamingMode ? 'border-[#00fff7] bg-[#12121a]' : 'border-cyan-300 bg-cyan-50'}`}>
+                  <div className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Events with Insight</div>
+                  <div className={`text-xl font-bold ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`}>{stats.eventsWithInsight}</div>
                 </div>
               </div>
 
               {/* Export/Import/Reset Buttons */}
-              <div className="p-4 border-3 border-[#ffd700] bg-[#12121a]">
-                <h3 className="text-sm font-bold text-[#ffd700] mb-3">Data Management</h3>
+              <div className={`p-4 border-3 ${isGamingMode ? 'border-[#ffd700] bg-[#12121a]' : 'border-amber-300 bg-amber-50'}`}>
+                <h3 className={`text-sm font-bold mb-3 ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>Data Management</h3>
                 <div className="flex flex-wrap gap-2">
                   <Button
-                    className="gap-2 bg-[#00fff7] text-[#0a0a0f] font-bold"
+                    className={`gap-2 font-bold ${isGamingMode ? 'bg-[#00fff7] text-[#0a0a0f]' : 'bg-cyan-500 text-white'}`}
                     onClick={onExportData}
                   >
                     <Download className="w-4 h-4" />
                     Export JSON
                   </Button>
                   <Button
-                    className="gap-2 bg-[#39ff14] text-[#0a0a0f] font-bold"
+                    className={`gap-2 font-bold ${isGamingMode ? 'bg-[#39ff14] text-[#0a0a0f]' : 'bg-green-500 text-white'}`}
                     onClick={() => fileInputRef.current?.click()}
                   >
                     <Upload className="w-4 h-4" />
@@ -1474,7 +1497,7 @@ function AdminPanelModal({
                     className="hidden"
                   />
                   <Button
-                    className="gap-2 bg-[#ff0040] text-white font-bold"
+                    className="gap-2 bg-red-500 text-white font-bold"
                     onClick={() => {
                       showConfirmDialog(
                         'Reset to Default',
@@ -1499,7 +1522,7 @@ function AdminPanelModal({
               <div className="flex items-center justify-between gap-2 flex-wrap">
                 <div className="flex gap-2">
                   <Button
-                    className={`gap-2 font-bold ${isAddingNew && activeTab === 'events' ? 'bg-[#ff0040] text-white' : 'bg-[#39ff14] text-[#0a0a0f]'}`}
+                    className={`gap-2 font-bold ${isAddingNew && activeTab === 'events' ? 'bg-red-500 text-white' : (isGamingMode ? 'bg-[#39ff14] text-[#0a0a0f]' : 'bg-green-500 text-white')}`}
                     onClick={() => {
                       if (isAddingNew) {
                         resetForm()
@@ -1518,7 +1541,7 @@ function AdminPanelModal({
                   <Button
                     size="sm"
                     variant={selectedDayFilter === 'ALL' ? 'default' : 'outline'}
-                    className={`text-xs ${selectedDayFilter === 'ALL' ? 'bg-[#00fff7] text-[#0a0a0f]' : ''}`}
+                    className={`text-xs ${selectedDayFilter === 'ALL' ? (isGamingMode ? 'bg-[#00fff7] text-[#0a0a0f]' : 'bg-cyan-500 text-white') : ''}`}
                     onClick={() => setSelectedDayFilter('ALL')}
                   >
                     ALL
@@ -1528,7 +1551,7 @@ function AdminPanelModal({
                       key={day}
                       size="sm"
                       variant={selectedDayFilter === day ? 'default' : 'outline'}
-                      className={`text-xs ${selectedDayFilter === day ? 'bg-[#ff00ff] text-white' : ''}`}
+                      className={`text-xs ${selectedDayFilter === day ? (isGamingMode ? 'bg-[#ff00ff] text-white' : 'bg-fuchsia-500 text-white') : ''}`}
                       onClick={() => setSelectedDayFilter(day)}
                     >
                       {day.slice(0, 3)}
@@ -1542,40 +1565,40 @@ function AdminPanelModal({
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              className="border-3 border-[#ffd700] bg-[#12121a] p-4 space-y-3"
+              className={`border-3 p-4 space-y-3 ${isGamingMode ? 'border-[#ffd700] bg-[#12121a]' : 'border-amber-300 bg-amber-50'}`}
             >
-              <h3 className="text-[#ffd700] font-bold flex items-center gap-2">
+              <h3 className={`font-bold flex items-center gap-2 ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>
                 {editingEvent ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 {editingEvent ? 'Edit Event' : 'New Event'}
               </h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs text-[#8888aa]">Event Name *</label>
+                  <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Event Name *</label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#00fff7] outline-none"
+                    className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#00fff7]' : 'bg-white border-gray-300 text-gray-900 focus:border-cyan-500'}`}
                     placeholder="Event name..."
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#8888aa]">Icon URL</label>
+                  <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Icon URL</label>
                   <input
                     type="text"
                     value={formData.icon}
                     onChange={(e) => setFormData({...formData, icon: e.target.value})}
-                    className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#00fff7] outline-none"
+                    className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#00fff7]' : 'bg-white border-gray-300 text-gray-900 focus:border-cyan-500'}`}
                     placeholder="/icons/event.png"
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#8888aa]">Day *</label>
+                  <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Day *</label>
                   <select
                     value={formData.day}
                     onChange={(e) => setFormData({...formData, day: e.target.value})}
-                    className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#00fff7] outline-none"
+                    className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#00fff7]' : 'bg-white border-gray-300 text-gray-900 focus:border-cyan-500'}`}
                   >
                     {DAYS.map(day => (
                       <option key={day} value={day}>{day}</option>
@@ -1583,30 +1606,30 @@ function AdminPanelModal({
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs text-[#8888aa]">Time (UTC) *</label>
+                  <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Time (UTC) *</label>
                   <input
                     type="time"
                     value={formData.timeUTC}
                     onChange={(e) => setFormData({...formData, timeUTC: e.target.value})}
-                    className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#00fff7] outline-none"
+                    className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#00fff7]' : 'bg-white border-gray-300 text-gray-900 focus:border-cyan-500'}`}
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#8888aa]">Duration (minutes)</label>
+                  <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Duration (minutes)</label>
                   <input
                     type="number"
                     value={formData.duration}
                     onChange={(e) => setFormData({...formData, duration: parseInt(e.target.value) || 60})}
-                    className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#00fff7] outline-none"
+                    className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#00fff7]' : 'bg-white border-gray-300 text-gray-900 focus:border-cyan-500'}`}
                     placeholder="60"
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#8888aa]">Role Required</label>
+                  <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Role Required</label>
                   <select
                     value={formData.roleReq}
                     onChange={(e) => setFormData({...formData, roleReq: e.target.value, roleColor: e.target.value === 'Neuron+' ? '#f97316' : e.target.value === 'Brain+' ? '#a855f7' : '#eab308'})}
-                    className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#00fff7] outline-none"
+                    className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#00fff7]' : 'bg-white border-gray-300 text-gray-900 focus:border-cyan-500'}`}
                   >
                     {customRoles.map(role => (
                       <option key={role.name} value={role.name + '+'}>{role.name}+</option>
@@ -1614,43 +1637,43 @@ function AdminPanelModal({
                   </select>
                 </div>
                 <div className="md:col-span-2">
-                  <label className="text-xs text-[#8888aa]">Discord/Event Link</label>
+                  <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Discord/Event Link</label>
                   <input
                     type="text"
                     value={formData.link}
                     onChange={(e) => setFormData({...formData, link: e.target.value})}
-                    className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#00fff7] outline-none"
+                    className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#00fff7]' : 'bg-white border-gray-300 text-gray-900 focus:border-cyan-500'}`}
                     placeholder="https://discord.com/..."
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="text-xs text-[#8888aa]">Description</label>
+                  <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Description</label>
                   <textarea
                     value={formData.description}
                     onChange={(e) => setFormData({...formData, description: e.target.value})}
-                    className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#00fff7] outline-none resize-none"
+                    className={`w-full border-2 p-2 text-sm outline-none resize-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#00fff7]' : 'bg-white border-gray-300 text-gray-900 focus:border-cyan-500'}`}
                     rows={2}
                     placeholder="Event description..."
                   />
                 </div>
                 <div className="md:col-span-2 flex gap-4 flex-wrap">
                   <label className="flex items-center gap-2 text-sm cursor-pointer">
-                    <input type="checkbox" checked={formData.hasPOAP} onChange={(e) => setFormData({...formData, hasPOAP: e.target.checked})} className="w-4 h-4 accent-[#ff00ff]" />
-                    <span className="text-[#ff00ff]">🎁 POAP</span>
+                    <input type="checkbox" checked={formData.hasPOAP} onChange={(e) => setFormData({...formData, hasPOAP: e.target.checked})} className="w-4 h-4 accent-fuchsia-500" />
+                    <span className={isGamingMode ? 'text-[#ff00ff]' : 'text-fuchsia-600'}>🎁 POAP</span>
                   </label>
                   <label className="flex items-center gap-2 text-sm cursor-pointer">
-                    <input type="checkbox" checked={formData.hasInsight} onChange={(e) => setFormData({...formData, hasInsight: e.target.checked})} className="w-4 h-4 accent-[#00fff7]" />
-                    <span className="text-[#00fff7]">⚡ Insight</span>
+                    <input type="checkbox" checked={formData.hasInsight} onChange={(e) => setFormData({...formData, hasInsight: e.target.checked})} className="w-4 h-4 accent-cyan-500" />
+                    <span className={isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}>⚡ Insight</span>
                   </label>
                   <label className="flex items-center gap-2 text-sm cursor-pointer">
-                    <input type="checkbox" checked={formData.isSpecial} onChange={(e) => setFormData({...formData, isSpecial: e.target.checked})} className="w-4 h-4 accent-[#ffd700]" />
-                    <span className="text-[#ffd700]">⭐ Special</span>
+                    <input type="checkbox" checked={formData.isSpecial} onChange={(e) => setFormData({...formData, isSpecial: e.target.checked})} className="w-4 h-4 accent-amber-500" />
+                    <span className={isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}>⭐ Special</span>
                   </label>
                 </div>
               </div>
               <div className="flex justify-end gap-2 pt-2">
-                <Button variant="outline" className="border-2 border-[#8888aa] text-[#8888aa]" onClick={resetForm}>Cancel</Button>
-                <Button className="bg-[#39ff14] text-[#0a0a0f] font-bold gap-2" onClick={handleEventSubmit}>
+                <Button variant="outline" className={`border-2 ${isGamingMode ? 'border-[#8888aa] text-[#8888aa]' : 'border-gray-300 text-gray-600'}`} onClick={resetForm}>Cancel</Button>
+                <Button className={`font-bold gap-2 ${isGamingMode ? 'bg-[#39ff14] text-[#0a0a0f]' : 'bg-green-500 text-white'}`} onClick={handleEventSubmit}>
                   <Save className="w-4 h-4" />
                   {editingEvent ? 'Update Event' : 'Add Event'}
                 </Button>
@@ -1660,7 +1683,7 @@ function AdminPanelModal({
 
           {/* Events List */}
           <div className="space-y-2">
-            <h3 className="text-[#00fff7] font-bold flex items-center gap-2">
+            <h3 className={`font-bold flex items-center gap-2 ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`}>
               <Calendar className="w-4 h-4" />
               Events List ({filteredEvents.length})
             </h3>
@@ -1670,18 +1693,18 @@ function AdminPanelModal({
                   key={event.id}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="flex items-center gap-3 p-2 border-2 border-[#2a2a4e] bg-[#0a0a0f] hover:border-[#00fff7] transition-colors"
+                  className={`flex items-center gap-3 p-2 border-2 transition-colors ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f] hover:border-[#00fff7]' : 'border-gray-200 bg-white hover:border-cyan-400'}`}
                 >
                   {event.icon && (
-                    <img src={event.icon} alt="" className="w-8 h-8 border border-[#2a2a4e]" style={{ imageRendering: 'pixelated' }} />
+                    <img src={event.icon} alt="" className={`w-8 h-8 border ${isGamingMode ? 'border-[#2a2a4e]' : 'border-gray-200'}`} style={{ imageRendering: 'pixelated' }} />
                   )}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-bold text-[#00fff7] truncate">{event.name}</h4>
+                      <h4 className={`text-sm font-bold truncate ${isGamingMode ? 'text-[#00fff7]' : 'text-cyan-600'}`}>{event.name}</h4>
                       {event.isSpecial && <span className="text-yellow-500">★</span>}
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-[#8888aa]">
-                      <span className="text-[#ff00ff]">{getDayName(event.day)}</span>
+                    <div className={`flex items-center gap-2 text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>
+                      <span className={isGamingMode ? 'text-[#ff00ff]' : 'text-fuchsia-600'}>{getDayName(event.day)}</span>
                       <span>•</span>
                       <span>{event.timeUTC} UTC</span>
                       <span>•</span>
@@ -1693,7 +1716,7 @@ function AdminPanelModal({
                     {event.hasInsight && <span title="Insight">⚡</span>}
                   </div>
                   <div className="flex gap-1">
-                    <button onClick={() => startEditEvent(event)} className="p-1.5 border-2 border-[#00fff7] text-[#00fff7] hover:bg-[#00fff7]/20 transition-colors" title="Edit">
+                    <button onClick={() => startEditEvent(event)} className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-[#00fff7] text-[#00fff7] hover:bg-[#00fff7]/20' : 'border-cyan-400 text-cyan-600 hover:bg-cyan-100'}`} title="Edit">
                       <Edit className="w-3 h-3" />
                     </button>
                     <button 
@@ -1705,7 +1728,7 @@ function AdminPanelModal({
                           'danger'
                         )
                       }} 
-                      className="p-1.5 border-2 border-[#ff0040] text-[#ff0040] hover:bg-[#ff0040]/20 transition-colors" 
+                      className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-red-500 text-red-400 hover:bg-red-500/20' : 'border-red-400 text-red-500 hover:bg-red-100'}`}
                       title="Delete"
                     >
                       <Trash2 className="w-3 h-3" />
@@ -1723,7 +1746,7 @@ function AdminPanelModal({
             <>
               <div className="flex items-center justify-between gap-2">
                 <Button
-                  className={`gap-2 font-bold ${isAddingNew && activeTab === 'roles' ? 'bg-[#ff0040] text-white' : 'bg-[#ff00ff] text-white'}`}
+                  className={`gap-2 font-bold ${isAddingNew && activeTab === 'roles' ? 'bg-red-500 text-white' : (isGamingMode ? 'bg-[#ff00ff] text-white' : 'bg-fuchsia-500 text-white')}`}
                   onClick={() => {
                     if (isAddingNew) {
                       resetForm()
@@ -1742,75 +1765,75 @@ function AdminPanelModal({
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
-                  className="border-3 border-[#ff00ff] bg-[#12121a] p-4 space-y-3"
+                  className={`border-3 p-4 space-y-3 ${isGamingMode ? 'border-[#ff00ff] bg-[#12121a]' : 'border-fuchsia-300 bg-fuchsia-50'}`}
                 >
-                  <h3 className="text-[#ff00ff] font-bold flex items-center gap-2">
+                  <h3 className={`font-bold flex items-center gap-2 ${isGamingMode ? 'text-[#ff00ff]' : 'text-fuchsia-600'}`}>
                     {editingRole ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                     {editingRole ? 'Edit Role' : 'New Role'}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <label className="text-xs text-[#8888aa]">Role Name *</label>
+                      <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Role Name *</label>
                       <input
                         type="text"
                         value={roleFormData.name}
                         onChange={(e) => setRoleFormData({...roleFormData, name: e.target.value})}
-                        className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#ff00ff] outline-none"
+                        className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#ff00ff]' : 'bg-white border-gray-300 text-gray-900 focus:border-fuchsia-500'}`}
                         placeholder="Role name..."
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-[#8888aa]">Emoji</label>
+                      <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Emoji</label>
                       <input
                         type="text"
                         value={roleFormData.emoji}
                         onChange={(e) => setRoleFormData({...roleFormData, emoji: e.target.value})}
-                        className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#ff00ff] outline-none"
+                        className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#ff00ff]' : 'bg-white border-gray-300 text-gray-900 focus:border-fuchsia-500'}`}
                         placeholder="🟡"
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-[#8888aa]">Color (hex)</label>
+                      <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Color (hex)</label>
                       <div className="flex gap-2">
                         <input
                           type="color"
                           value={roleFormData.color}
                           onChange={(e) => setRoleFormData({...roleFormData, color: e.target.value})}
-                          className="w-10 h-9 border-2 border-[#2a2a4e] cursor-pointer"
+                          className={`w-10 h-9 border-2 cursor-pointer ${isGamingMode ? 'border-[#2a2a4e]' : 'border-gray-300'}`}
                         />
                         <input
                           type="text"
                           value={roleFormData.color}
                           onChange={(e) => setRoleFormData({...roleFormData, color: e.target.value})}
-                          className="flex-1 bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#ff00ff] outline-none"
+                          className={`flex-1 border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#ff00ff]' : 'bg-white border-gray-300 text-gray-900 focus:border-fuchsia-500'}`}
                           placeholder="#eab308"
                         />
                       </div>
                     </div>
                     <div className="md:col-span-2">
-                      <label className="text-xs text-[#8888aa]">Requirements</label>
+                      <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Requirements</label>
                       <input
                         type="text"
                         value={roleFormData.requirements}
                         onChange={(e) => setRoleFormData({...roleFormData, requirements: e.target.value})}
-                        className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#ff00ff] outline-none"
+                        className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#ff00ff]' : 'bg-white border-gray-300 text-gray-900 focus:border-fuchsia-500'}`}
                         placeholder="Level 1..."
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="text-xs text-[#8888aa]">Perks</label>
+                      <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Perks</label>
                       <input
                         type="text"
                         value={roleFormData.perks}
                         onChange={(e) => setRoleFormData({...roleFormData, perks: e.target.value})}
-                        className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#ff00ff] outline-none"
+                        className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#ff00ff]' : 'bg-white border-gray-300 text-gray-900 focus:border-fuchsia-500'}`}
                         placeholder="Access to channels..."
                       />
                     </div>
                   </div>
                   <div className="flex justify-end gap-2 pt-2">
-                    <Button variant="outline" className="border-2 border-[#8888aa] text-[#8888aa]" onClick={resetForm}>Cancel</Button>
-                    <Button className="bg-[#ff00ff] text-white font-bold gap-2" onClick={handleRoleSubmit}>
+                    <Button variant="outline" className={`border-2 ${isGamingMode ? 'border-[#8888aa] text-[#8888aa]' : 'border-gray-300 text-gray-600'}`} onClick={resetForm}>Cancel</Button>
+                    <Button className={`font-bold gap-2 ${isGamingMode ? 'bg-[#ff00ff] text-white' : 'bg-fuchsia-500 text-white'}`} onClick={handleRoleSubmit}>
                       <Save className="w-4 h-4" />
                       {editingRole ? 'Update Role' : 'Add Role'}
                     </Button>
@@ -1820,7 +1843,7 @@ function AdminPanelModal({
 
               {/* Roles List */}
               <div className="space-y-2">
-                <h3 className="text-[#ff00ff] font-bold flex items-center gap-2">
+                <h3 className={`font-bold flex items-center gap-2 ${isGamingMode ? 'text-[#ff00ff]' : 'text-fuchsia-600'}`}>
                   <Award className="w-4 h-4" />
                   Roles Hierarchy ({customRoles.length})
                 </h3>
@@ -1831,16 +1854,16 @@ function AdminPanelModal({
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="flex items-center gap-3 p-3 border-2 border-[#2a2a4e] bg-[#0a0a0f] hover:border-[#ff00ff] transition-colors"
+                      className={`flex items-center gap-3 p-3 border-2 transition-colors ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f] hover:border-[#ff00ff]' : 'border-gray-200 bg-white hover:border-fuchsia-400'}`}
                     >
                       <span className="text-2xl">{role.emoji}</span>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-bold truncate" style={{ color: role.color, textShadow: `0 0 10px ${role.color}40` }}>{role.name}</h4>
-                        <p className="text-xs text-[#8888aa] truncate">{role.requirements}</p>
-                        <p className="text-xs text-[#b8b8c8] truncate">✨ {role.perks}</p>
+                        <h4 className="text-sm font-bold truncate" style={{ color: role.color, textShadow: isGamingMode ? `0 0 10px ${role.color}40` : 'none' }}>{role.name}</h4>
+                        <p className={`text-xs truncate ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>{role.requirements}</p>
+                        <p className={`text-xs truncate ${isGamingMode ? 'text-[#b8b8c8]' : 'text-gray-600'}`}>✨ {role.perks}</p>
                       </div>
                       <div className="flex gap-1">
-                        <button onClick={() => startEditRole(role)} className="p-1.5 border-2 border-[#ff00ff] text-[#ff00ff] hover:bg-[#ff00ff]/20 transition-colors" title="Edit">
+                        <button onClick={() => startEditRole(role)} className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-[#ff00ff] text-[#ff00ff] hover:bg-[#ff00ff]/20' : 'border-fuchsia-400 text-fuchsia-600 hover:bg-fuchsia-100'}`} title="Edit">
                           <Edit className="w-3 h-3" />
                         </button>
                         <button 
@@ -1852,7 +1875,7 @@ function AdminPanelModal({
                               'danger'
                             )
                           }} 
-                          className="p-1.5 border-2 border-[#ff0040] text-[#ff0040] hover:bg-[#ff0040]/20 transition-colors" 
+                          className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-red-500 text-red-400 hover:bg-red-500/20' : 'border-red-400 text-red-500 hover:bg-red-100'}`}
                           title="Delete"
                         >
                           <Trash2 className="w-3 h-3" />
@@ -1870,7 +1893,7 @@ function AdminPanelModal({
             <>
               <div className="flex items-center justify-between gap-2">
                 <Button
-                  className={`gap-2 font-bold ${isAddingNew && activeTab === 'functional' ? 'bg-[#ff0040] text-white' : 'bg-[#39ff14] text-[#0a0a0f]'}`}
+                  className={`gap-2 font-bold ${isAddingNew && activeTab === 'functional' ? 'bg-red-500 text-white' : (isGamingMode ? 'bg-[#39ff14] text-[#0a0a0f]' : 'bg-green-500 text-white')}`}
                   onClick={() => {
                     if (isAddingNew) {
                       resetForm()
@@ -1889,47 +1912,47 @@ function AdminPanelModal({
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
-                  className="border-3 border-[#39ff14] bg-[#12121a] p-4 space-y-3"
+                  className={`border-3 p-4 space-y-3 ${isGamingMode ? 'border-[#39ff14] bg-[#12121a]' : 'border-green-300 bg-green-50'}`}
                 >
-                  <h3 className="text-[#39ff14] font-bold flex items-center gap-2">
+                  <h3 className={`font-bold flex items-center gap-2 ${isGamingMode ? 'text-[#39ff14]' : 'text-green-600'}`}>
                     {editingFunctionalRole ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                     {editingFunctionalRole ? 'Edit Functional Role' : 'New Functional Role'}
                   </h3>
                   <div className="grid grid-cols-1 gap-3">
                     <div>
-                      <label className="text-xs text-[#8888aa]">Role Name *</label>
+                      <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Role Name *</label>
                       <input
                         type="text"
                         value={funcRoleFormData.name}
                         onChange={(e) => setFuncRoleFormData({...funcRoleFormData, name: e.target.value})}
-                        className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#39ff14] outline-none"
+                        className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#39ff14]' : 'bg-white border-gray-300 text-gray-900 focus:border-green-500'}`}
                         placeholder="Role name..."
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-[#8888aa]">Requirements</label>
+                      <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Requirements</label>
                       <input
                         type="text"
                         value={funcRoleFormData.requirements}
                         onChange={(e) => setFuncRoleFormData({...funcRoleFormData, requirements: e.target.value})}
-                        className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#39ff14] outline-none"
+                        className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#39ff14]' : 'bg-white border-gray-300 text-gray-900 focus:border-green-500'}`}
                         placeholder="How to get this role..."
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-[#8888aa]">Perks</label>
+                      <label className={`text-xs ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Perks</label>
                       <input
                         type="text"
                         value={funcRoleFormData.perks}
                         onChange={(e) => setFuncRoleFormData({...funcRoleFormData, perks: e.target.value})}
-                        className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-2 text-sm focus:border-[#39ff14] outline-none"
+                        className={`w-full border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#39ff14]' : 'bg-white border-gray-300 text-gray-900 focus:border-green-500'}`}
                         placeholder="What this role gives..."
                       />
                     </div>
                   </div>
                   <div className="flex justify-end gap-2 pt-2">
-                    <Button variant="outline" className="border-2 border-[#8888aa] text-[#8888aa]" onClick={resetForm}>Cancel</Button>
-                    <Button className="bg-[#39ff14] text-[#0a0a0f] font-bold gap-2" onClick={handleFunctionalRoleSubmit}>
+                    <Button variant="outline" className={`border-2 ${isGamingMode ? 'border-[#8888aa] text-[#8888aa]' : 'border-gray-300 text-gray-600'}`} onClick={resetForm}>Cancel</Button>
+                    <Button className={`font-bold gap-2 ${isGamingMode ? 'bg-[#39ff14] text-[#0a0a0f]' : 'bg-green-500 text-white'}`} onClick={handleFunctionalRoleSubmit}>
                       <Save className="w-4 h-4" />
                       {editingFunctionalRole ? 'Update Role' : 'Add Role'}
                     </Button>
@@ -1939,7 +1962,7 @@ function AdminPanelModal({
 
               {/* Functional Roles List */}
               <div className="space-y-2">
-                <h3 className="text-[#39ff14] font-bold flex items-center gap-2">
+                <h3 className={`font-bold flex items-center gap-2 ${isGamingMode ? 'text-[#39ff14]' : 'text-green-600'}`}>
                   <Shield className="w-4 h-4" />
                   Functional Roles ({customFunctionalRoles.length})
                 </h3>
@@ -1950,16 +1973,16 @@ function AdminPanelModal({
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="flex items-center gap-3 p-3 border-2 border-[#2a2a4e] bg-[#0a0a0f] hover:border-[#39ff14] transition-colors"
+                      className={`flex items-center gap-3 p-3 border-2 transition-colors ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f] hover:border-[#39ff14]' : 'border-gray-200 bg-white hover:border-green-400'}`}
                     >
-                      <Shield className="w-6 h-6 text-[#39ff14]" />
+                      <Shield className={`w-6 h-6 ${isGamingMode ? 'text-[#39ff14]' : 'text-green-600'}`} />
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-bold text-[#39ff14] truncate">{role.name}</h4>
-                        <p className="text-xs text-[#8888aa] truncate">📋 {role.requirements}</p>
-                        <p className="text-xs text-[#b8b8c8] truncate">✨ {role.perks}</p>
+                        <h4 className={`text-sm font-bold truncate ${isGamingMode ? 'text-[#39ff14]' : 'text-green-600'}`}>{role.name}</h4>
+                        <p className={`text-xs truncate ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>📋 {role.requirements}</p>
+                        <p className={`text-xs truncate ${isGamingMode ? 'text-[#b8b8c8]' : 'text-gray-600'}`}>✨ {role.perks}</p>
                       </div>
                       <div className="flex gap-1">
-                        <button onClick={() => startEditFunctionalRole(role)} className="p-1.5 border-2 border-[#39ff14] text-[#39ff14] hover:bg-[#39ff14]/20 transition-colors" title="Edit">
+                        <button onClick={() => startEditFunctionalRole(role)} className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-[#39ff14] text-[#39ff14] hover:bg-[#39ff14]/20' : 'border-green-400 text-green-600 hover:bg-green-100'}`} title="Edit">
                           <Edit className="w-3 h-3" />
                         </button>
                         <button 
@@ -1971,7 +1994,7 @@ function AdminPanelModal({
                               'danger'
                             )
                           }} 
-                          className="p-1.5 border-2 border-[#ff0040] text-[#ff0040] hover:bg-[#ff0040]/20 transition-colors" 
+                          className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-red-500 text-red-400 hover:bg-red-500/20' : 'border-red-400 text-red-500 hover:bg-red-100'}`}
                           title="Delete"
                         >
                           <Trash2 className="w-3 h-3" />
@@ -1988,45 +2011,206 @@ function AdminPanelModal({
           {activeTab === 'settings' && (
             <div className="space-y-4">
               {/* Announcement Settings */}
-              <div className="p-4 border-3 border-[#ff6b35] bg-[#12121a]">
-                <h3 className="text-sm font-bold text-[#ff6b35] mb-3 flex items-center gap-2">
+              <div className={`p-4 border-3 ${isGamingMode ? 'border-[#ff6b35] bg-[#12121a]' : 'border-orange-300 bg-orange-50'}`}>
+                <h3 className={`text-sm font-bold mb-3 flex items-center gap-2 ${isGamingMode ? 'text-[#ff6b35]' : 'text-orange-600'}`}>
                   <Bell className="w-4 h-4" />
-                  Running Text / Announcement
+                  Running Text / Announcements
                 </h3>
-                <p className="text-xs text-[#8888aa] mb-3">
-                  Text ini akan tampil di header sebagai running text (marquee)
+                <p className={`text-xs mb-3 ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>
+                  Multiple texts akan tampil bergantian di header sebagai running text (marquee)
                 </p>
-                <textarea
-                  value={announcementText}
-                  onChange={(e) => onUpdateAnnouncement(e.target.value)}
-                  className="w-full bg-[#0a0a0f] border-2 border-[#2a2a4e] text-white p-3 text-sm focus:border-[#ff6b35] outline-none resize-none"
-                  rows={3}
-                  placeholder="Enter announcement text..."
-                />
-                <div className="flex justify-between items-center mt-2">
-                  <span className="text-xs text-[#8888aa]">{announcementText.length} characters</span>
+                
+                {/* Add New Announcement */}
+                <div className={`flex gap-2 mb-3 ${isAddingNew && editingAnnouncement === null ? '' : 'hidden'}`}>
+                  <input
+                    type="text"
+                    value={newAnnouncementText}
+                    onChange={(e) => setNewAnnouncementText(e.target.value)}
+                    className={`flex-1 border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#0a0a0f] border-[#2a2a4e] text-white focus:border-[#ff6b35]' : 'bg-white border-gray-300 text-gray-900 focus:border-orange-500'}`}
+                    placeholder="Enter new announcement text..."
+                  />
                   <Button
                     size="sm"
-                    className="bg-[#ff6b35] text-white font-bold text-xs"
+                    className={`font-bold text-xs ${isGamingMode ? 'bg-[#39ff14] text-[#0a0a0f]' : 'bg-green-500 text-white'}`}
                     onClick={() => {
-                      onUpdateAnnouncement(announcementText)
+                      if (newAnnouncementText.trim()) {
+                        onAddAnnouncement(newAnnouncementText.trim())
+                        setNewAnnouncementText('')
+                        setIsAddingNew(false)
+                      }
                     }}
                   >
-                    <Save className="w-3 h-3 mr-1" />
-                    Save
+                    <Plus className="w-3 h-3 mr-1" />
+                    Add
                   </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className={`text-xs ${isGamingMode ? 'border-[#8888aa] text-[#8888aa]' : 'border-gray-300 text-gray-600'}`}
+                    onClick={() => {
+                      setNewAnnouncementText('')
+                      setIsAddingNew(false)
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+
+                {/* Add Button */}
+                {!isAddingNew && (
+                  <Button
+                    size="sm"
+                    className={`w-full font-bold text-xs mb-3 ${isGamingMode ? 'border-2 border-dashed border-[#ff6b35] text-[#ff6b35] bg-transparent hover:bg-[#ff6b35]/10' : 'border border-dashed border-orange-500 text-orange-500 bg-transparent hover:bg-orange-50'}`}
+                    onClick={() => {
+                      setIsAddingNew(true)
+                      setEditingAnnouncement(null)
+                    }}
+                  >
+                    <Plus className="w-3 h-3 mr-1" />
+                    Add New Announcement
+                  </Button>
+                )}
+                
+                {/* Announcements List */}
+                <div className="space-y-2 max-h-[40vh] overflow-y-auto custom-scrollbar">
+                  {announcementTexts.length === 0 ? (
+                    <div className={`text-center py-4 ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>
+                      <Bell className="w-8 h-8 mx-auto mb-2 opacity-30" />
+                      <p className="text-xs">No announcements yet. Add one above!</p>
+                    </div>
+                  ) : (
+                    announcementTexts.map((text, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className={`flex items-start gap-2 p-3 border-2 transition-colors ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f] hover:border-[#ff6b35]' : 'border-gray-200 bg-white hover:border-orange-400'}`}
+                      >
+                        <span className={`text-xs font-bold mt-1 ${isGamingMode ? 'text-[#ff6b35]' : 'text-orange-500'}`}>#{index + 1}</span>
+                        
+                        {editingAnnouncement === index ? (
+                          <div className="flex-1 flex gap-2">
+                            <input
+                              type="text"
+                              value={newAnnouncementText}
+                              onChange={(e) => setNewAnnouncementText(e.target.value)}
+                              className={`flex-1 border-2 p-2 text-sm outline-none ${isGamingMode ? 'bg-[#12121a] border-[#ff6b35] text-white' : 'bg-gray-50 border-orange-400 text-gray-900'}`}
+                              autoFocus
+                            />
+                            <Button
+                              size="sm"
+                              className={`font-bold text-xs ${isGamingMode ? 'bg-[#39ff14] text-[#0a0a0f]' : 'bg-green-500 text-white'}`}
+                              onClick={() => {
+                                if (newAnnouncementText.trim()) {
+                                  onEditAnnouncement(index, newAnnouncementText.trim())
+                                  setEditingAnnouncement(null)
+                                  setNewAnnouncementText('')
+                                }
+                              }}
+                            >
+                              <Save className="w-3 h-3" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className={`text-xs ${isGamingMode ? 'border-[#8888aa] text-[#8888aa]' : 'border-gray-300 text-gray-600'}`}
+                              onClick={() => {
+                                setEditingAnnouncement(null)
+                                setNewAnnouncementText('')
+                              }}
+                            >
+                              <X className="w-3 h-3" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <>
+                            <p className={`flex-1 text-sm ${isGamingMode ? 'text-[#b8b8c8]' : 'text-gray-700'}`}>{text}</p>
+                            <div className="flex gap-1 flex-shrink-0">
+                              <button
+                                onClick={() => {
+                                  setEditingAnnouncement(index)
+                                  setNewAnnouncementText(text)
+                                  setIsAddingNew(false)
+                                }}
+                                className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-[#ffd700] text-[#ffd700] hover:bg-[#ffd700]/20' : 'border-amber-400 text-amber-600 hover:bg-amber-100'}`}
+                                title="Edit"
+                              >
+                                <Edit className="w-3 h-3" />
+                              </button>
+                              <button
+                                onClick={() => {
+                                  showConfirmDialog(
+                                    'Delete Announcement',
+                                    'Are you sure you want to delete this announcement?',
+                                    () => onDeleteAnnouncement(index),
+                                    'danger'
+                                  )
+                                }}
+                                className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-red-500 text-red-400 hover:bg-red-500/20' : 'border-red-400 text-red-500 hover:bg-red-100'}`}
+                                title="Delete"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </button>
+                              {/* Move Up/Down buttons */}
+                              {index > 0 && (
+                                <button
+                                  onClick={() => {
+                                    const newTexts = [...announcementTexts]
+                                    ;[newTexts[index - 1], newTexts[index]] = [newTexts[index], newTexts[index - 1]]
+                                    onReorderAnnouncements(newTexts)
+                                  }}
+                                  className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-[#00fff7] text-[#00fff7] hover:bg-[#00fff7]/20' : 'border-cyan-400 text-cyan-600 hover:bg-cyan-100'}`}
+                                  title="Move Up"
+                                >
+                                  ↑
+                                </button>
+                              )}
+                              {index < announcementTexts.length - 1 && (
+                                <button
+                                  onClick={() => {
+                                    const newTexts = [...announcementTexts]
+                                    ;[newTexts[index], newTexts[index + 1]] = [newTexts[index + 1], newTexts[index]]
+                                    onReorderAnnouncements(newTexts)
+                                  }}
+                                  className={`p-1.5 border-2 transition-colors ${isGamingMode ? 'border-[#00fff7] text-[#00fff7] hover:bg-[#00fff7]/20' : 'border-cyan-400 text-cyan-600 hover:bg-cyan-100'}`}
+                                  title="Move Down"
+                                >
+                                  ↓
+                                </button>
+                              )}
+                            </div>
+                          </>
+                        )}
+                      </motion.div>
+                    ))
+                  )}
                 </div>
               </div>
 
               {/* Preview */}
-              <div className="p-4 border-3 border-[#2a2a4e] bg-[#0a0a0f]">
-                <h3 className="text-sm font-bold text-[#8888aa] mb-2">Preview:</h3>
-                <div className="overflow-hidden border-2 border-[#2a2a4e] bg-[#12121a] p-2">
-                  <div className="animate-marquee whitespace-nowrap text-[#ffd700] text-sm">
-                    <span>{announcementText}</span>
-                    <span className="mx-8">•</span>
-                    <span>{announcementText}</span>
-                    <span className="mx-8">•</span>
+              <div className={`p-4 border-3 ${isGamingMode ? 'border-[#2a2a4e] bg-[#0a0a0f]' : 'border-gray-200 bg-white'}`}>
+                <h3 className={`text-sm font-bold mb-2 ${isGamingMode ? 'text-[#8888aa]' : 'text-gray-500'}`}>Preview:</h3>
+                <div className={`overflow-hidden border-2 p-2 ${isGamingMode ? 'border-[#2a2a4e] bg-[#12121a]' : 'border-gray-200 bg-gray-50'}`}>
+                  <div className={`animate-marquee whitespace-nowrap text-sm ${isGamingMode ? 'text-[#ffd700]' : 'text-amber-600'}`}>
+                    {announcementTexts.length > 0 ? (
+                      <>
+                        {announcementTexts.map((text, idx) => (
+                          <span key={idx}>
+                            <span>{text}</span>
+                            {idx < announcementTexts.length - 1 && <span className="mx-8">•</span>}
+                          </span>
+                        ))}
+                        <span className="mx-8">•</span>
+                        {announcementTexts.map((text, idx) => (
+                          <span key={`dup-${idx}`}>
+                            <span>{text}</span>
+                            {idx < announcementTexts.length - 1 && <span className="mx-8">•</span>}
+                          </span>
+                        ))}
+                      </>
+                    ) : (
+                      <span className="opacity-50">No announcements to preview</span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -2042,6 +2226,7 @@ function AdminPanelModal({
           message={confirmDialog.message}
           onConfirm={confirmDialog.onConfirm}
           variant={confirmDialog.variant}
+          isGamingMode={isGamingMode}
         />
       </DialogContent>
     </Dialog>
@@ -2079,11 +2264,15 @@ function AppContent() {
   const [customRoles, setCustomRoles] = useState<Role[]>([...roles])
   const rolesLoadedRef = useRef(false)
   const [customFunctionalRoles, setCustomFunctionalRoles] = useState<FunctionalRole[]>([...functionalRoles])
-  
-  // Announcement/Running text
-  const [announcementText, setAnnouncementText] = useState('🎉 Welcome to GenLayer Event Alarm System! Set your alarms and never miss an event.')
-  const announcementLoadedRef = useRef(false)
   const functionalRolesLoadedRef = useRef(false)
+  
+  // Announcement/Running text - Support multiple texts
+  const [announcementTexts, setAnnouncementTexts] = useState<string[]>([
+    '🎉 Welcome to GenLayer Event Alarm System! Set your alarms and never miss an event.',
+    '📅 Check out our weekly events and earn XP rewards!',
+    '🔔 Enable notifications to get alerts before events start!'
+  ])
+  const announcementLoadedRef = useRef(false)
 
   // Search and Filter
   const [searchQuery, setSearchQuery] = useState('')
@@ -2107,8 +2296,8 @@ function AppContent() {
 
   const { time: currentTime, dateString: currentDateString } = useCurrentTime()
   
-  // Combine default events with custom events
-  const allEvents = [...events, ...customEvents]
+  // Combine default events with custom events - memoized to prevent unnecessary re-renders
+  const allEvents = useMemo(() => [...events, ...customEvents], [customEvents])
   
   // Get next event from all events
   const getNextEventCustom = useCallback(() => {
@@ -2212,15 +2401,28 @@ function AppContent() {
     // Check for secret URL parameter (format: ?admin=YOUR_SECRET_KEY)
     const urlParams = new URLSearchParams(window.location.search)
     const adminKey = urlParams.get('admin')
-    const secretKey = 'genlayer2024secret' // Change this to your own secret key
+    
+    // Multiple valid secrets for flexibility
+    const validSecrets = [
+      process.env.NEXT_PUBLIC_ADMIN_SECRET, // From .env
+      'gl2024secret', // Primary fallback
+      'genlayer2024secret', // Legacy fallback
+    ].filter(Boolean) // Remove undefined values
+    
+    const isValidSecret = adminKey && validSecrets.includes(adminKey)
 
-    if (isLocalhost || adminKey === secretKey) {
+    // Check localStorage for previously granted access
+    const wasGranted = localStorage.getItem('genlayer-admin-granted')
+
+    if (isLocalhost || isValidSecret || wasGranted === 'true') {
       // Use queueMicrotask to avoid cascading renders warning
       queueMicrotask(() => {
         setIsAdminAccess(true)
       })
-      // Clean up URL parameter after granting access
-      if (adminKey === secretKey) {
+      
+      // Save to localStorage when granted via URL
+      if (isValidSecret) {
+        localStorage.setItem('genlayer-admin-granted', 'true')
         urlParams.delete('admin')
         const newUrl = urlParams.toString()
           ? `${window.location.pathname}?${urlParams.toString()}`
@@ -2244,7 +2446,9 @@ function AppContent() {
               setCustomEvents(parsed)
             }, 0)
           }
-        } catch { }
+        } catch {
+          // localStorage data corrupted or invalid, use defaults
+        }
       }
     }
   }, [isClient])
@@ -2295,7 +2499,9 @@ function AppContent() {
               setCustomRoles(parsed)
             }, 0)
           }
-        } catch { }
+        } catch {
+          // localStorage data corrupted or invalid, use defaults
+        }
       }
     }
   }, [isClient])
@@ -2320,7 +2526,9 @@ function AppContent() {
               setCustomFunctionalRoles(parsed)
             }, 0)
           }
-        } catch { }
+        } catch {
+          // localStorage data corrupted or invalid, use defaults
+        }
       }
     }
   }, [isClient])
@@ -2332,25 +2540,55 @@ function AppContent() {
     }
   }, [customFunctionalRoles])
 
-  // Load announcement text from localStorage
+  // Load announcement texts from localStorage
   useEffect(() => {
     if (isClient && !announcementLoadedRef.current) {
       announcementLoadedRef.current = true
-      const saved = localStorage.getItem('genlayer-announcement-text')
+      const saved = localStorage.getItem('genlayer-announcement-texts')
       if (saved) {
-        setTimeout(() => {
-          setAnnouncementText(saved)
-        }, 0)
+        try {
+          const parsed = JSON.parse(saved) as string[]
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setTimeout(() => {
+              setAnnouncementTexts(parsed)
+            }, 0)
+          }
+        } catch {
+          // localStorage data corrupted or invalid, use defaults
+        }
       }
     }
   }, [isClient])
 
-  // Save announcement text to localStorage
+  // Save announcement texts to localStorage
   useEffect(() => {
     if (typeof window !== 'undefined' && announcementLoadedRef.current) {
-      localStorage.setItem('genlayer-announcement-text', announcementText)
+      localStorage.setItem('genlayer-announcement-texts', JSON.stringify(announcementTexts))
     }
-  }, [announcementText])
+  }, [announcementTexts])
+
+  // Announcement handlers
+  const handleAddAnnouncement = useCallback((text: string) => {
+    setAnnouncementTexts(prev => [...prev, text])
+    setNotification(`✅ Announcement added!`)
+    setTimeout(() => setNotification(null), 3000)
+  }, [])
+
+  const handleEditAnnouncement = useCallback((index: number, text: string) => {
+    setAnnouncementTexts(prev => prev.map((t, i) => i === index ? text : t))
+    setNotification(`✅ Announcement updated!`)
+    setTimeout(() => setNotification(null), 3000)
+  }, [])
+
+  const handleDeleteAnnouncement = useCallback((index: number) => {
+    setAnnouncementTexts(prev => prev.filter((_, i) => i !== index))
+    setNotification(`🗑️ Announcement deleted!`)
+    setTimeout(() => setNotification(null), 3000)
+  }, [])
+
+  const handleReorderAnnouncements = useCallback((texts: string[]) => {
+    setAnnouncementTexts(texts)
+  }, [])
 
   // Role handlers
   const handleAddRole = useCallback((role: Role) => {
@@ -2433,11 +2671,11 @@ function AppContent() {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js')
-        .then((registration) => {
-          console.log('[SW] Service Worker registered:', registration.scope)
+        .then(() => {
+          // Service Worker registered successfully
         })
-        .catch((error) => {
-          console.log('[SW] Service Worker registration failed:', error)
+        .catch(() => {
+          // Service Worker registration failed - non-critical
         })
     }
   }, [])
@@ -2457,7 +2695,9 @@ function AppContent() {
               setAlarmedEvents(new Set(parsed))
             }, 0)
           }
-        } catch { }
+        } catch {
+          // localStorage data corrupted or invalid, use defaults
+        }
       }
     }
   }, [isClient])
@@ -2488,7 +2728,7 @@ function AppContent() {
 
   // Function to show browser notification with sound - works even when tab is in background
   const showBrowserNotification = useCallback(async (title: string, body: string, eventIcon?: string, eventId?: string, skipModal?: boolean) => {
-    console.log('[Alarm] showBrowserNotification called:', title, body)
+    // Show browser notification
     
     // Play alarm sound using Web Audio API (multiple beeps for attention)
     try {
@@ -2508,7 +2748,11 @@ function AppContent() {
             gainNode.gain.value = 0.5
             oscillator.start()
             oscillator.stop(audioContext.currentTime + duration)
-          } catch (e) {}
+            // Close AudioContext after sound finishes to prevent memory leak
+            setTimeout(() => {
+              audioContext.close().catch(() => {})
+            }, (duration + 0.1) * 1000)
+          } catch { /* Sound playback failed - non-critical */ }
         }, delay)
       }
       
@@ -2518,16 +2762,12 @@ function AppContent() {
       playBeep(1000, 0.15, 400)
       playBeep(1200, 0.15, 600)
       playBeep(1500, 0.3, 800)
-      
-      console.log('[Alarm] Sound played')
-    } catch (e) {
-      console.error('[Alarm] Sound error:', e)
+    } catch {
+      // Sound playback failed - non-critical
     }
 
     // Show Discord-style toast notification at bottom (always visible)
-    console.log('[Alarm] Setting toast data:', { title, body, eventIcon, eventId, skipModal })
     setToastData({ title, message: body, icon: eventIcon, eventId })
-    console.log('[Alarm] Toast data set!')
     
     // Show visual notification on page (always works when tab is visible)
     setNotification(`${title}\n${body}`)
@@ -2555,7 +2795,7 @@ function AppContent() {
         const registration = await navigator.serviceWorker.ready
         if (registration && registration.showNotification) {
           await registration.showNotification(title, notificationOptions)
-          console.log('[Alarm] Service Worker notification shown')
+          // Service Worker notification shown successfully
           return
         }
       }
@@ -2563,10 +2803,10 @@ function AppContent() {
       // Fallback to regular Notification API
       if ('Notification' in window && Notification.permission === 'granted') {
         new Notification(title, notificationOptions)
-        console.log('[Alarm] Browser notification shown')
+        // Browser notification shown successfully
       }
-    } catch (e) {
-      console.log('[Alarm] Browser notification not available:', e)
+    } catch {
+      // Browser notification not available - non-critical
     }
   }, [])
 
@@ -2813,7 +3053,6 @@ function AppContent() {
               }
             }}
             onClose={() => {
-              console.log('[Toast] Closing toast')
               setToastData(null)
             }}
           />
@@ -2897,10 +3136,25 @@ function AppContent() {
             {/* Left: Running Text / Announcement */}
             <div className="flex-1 min-w-0 overflow-hidden">
               <div className={`animate-marquee whitespace-nowrap ${isGamingMode ? 'text-[#ffd700]' : 'text-muted-foreground'}`}>
-                <span className="text-sm font-medium">{announcementText}</span>
-                <span className="mx-8">•</span>
-                <span className="text-sm font-medium">{announcementText}</span>
-                <span className="mx-8">•</span>
+                {announcementTexts.length > 0 ? (
+                  <>
+                    {announcementTexts.map((text, idx) => (
+                      <span key={idx}>
+                        <span className="text-sm font-medium">{text}</span>
+                        {idx < announcementTexts.length - 1 && <span className="mx-8">•</span>}
+                      </span>
+                    ))}
+                    <span className="mx-8">•</span>
+                    {announcementTexts.map((text, idx) => (
+                      <span key={`dup-${idx}`}>
+                        <span className="text-sm font-medium">{text}</span>
+                        {idx < announcementTexts.length - 1 && <span className="mx-8">•</span>}
+                      </span>
+                    ))}
+                  </>
+                ) : (
+                  <span className="text-sm font-medium opacity-50">Welcome to GenLayer Event Alarm System</span>
+                )}
               </div>
             </div>
 
@@ -2968,31 +3222,31 @@ function AppContent() {
 
         {/* Admin Controls - Only visible for admin users (localhost or secret URL) */}
         {isAdminAccess && (
-          <div className="absolute top-2 right-2 flex items-center gap-1">
+          <div className="absolute top-2 right-2 flex items-center gap-1 z-50">
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
-              className={`h-7 text-[10px] px-2 ${demoMode ? 'text-red-400' : 'text-muted-foreground opacity-50 hover:opacity-100'}`}
+              className={`h-7 text-[10px] px-2 font-bold ${demoMode ? 'border-red-500 text-red-400 bg-red-500/20' : 'border-[#ff00ff] text-[#ff00ff] bg-[#ff00ff]/20 hover:bg-[#ff00ff]/30'}`}
               onClick={() => setDemoMode(!demoMode)}
             >
-              {demoMode ? '🔴 DEMO' : 'DEMO'}
+              {demoMode ? '🔴 DEMO ON' : 'DEMO'}
             </Button>
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
-              className={`h-7 text-[10px] px-2 ${adminMode ? 'text-green-400' : 'text-muted-foreground opacity-50 hover:opacity-100'}`}
+              className={`h-7 text-[10px] px-2 font-bold ${adminMode ? 'border-green-500 text-green-400 bg-green-500/20' : 'border-[#ffd700] text-[#ffd700] bg-[#ffd700]/20 hover:bg-[#ffd700]/30'}`}
               onClick={() => setAdminMode(!adminMode)}
             >
-              {adminMode ? '🟢 ADMIN' : 'ADMIN'}
+              {adminMode ? '🟢 ADMIN ON' : 'ADMIN'}
             </Button>
             {adminMode && (
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
-                className="h-7 text-[10px] px-2 text-amber-400"
+                className="h-7 text-[10px] px-2 font-bold border-cyan-500 text-cyan-400 bg-cyan-500/20 hover:bg-cyan-500/30"
                 onClick={() => setPasswordModalOpen(true)}
               >
-                MANAGE
+                ⚙️ MANAGE
               </Button>
             )}
           </div>
@@ -3848,7 +4102,7 @@ function AppContent() {
         </div>
       </footer>
 
-      <RoleSystemModal open={roleModalOpen} onOpenChange={setRoleModalOpen} customRoles={customRoles} customFunctionalRoles={customFunctionalRoles} />
+      <RoleSystemModal open={roleModalOpen} onOpenChange={setRoleModalOpen} customRoles={customRoles} customFunctionalRoles={customFunctionalRoles} isGamingMode={isGamingMode} />
       <EventDetailModal
         event={selectedEvent}
         open={eventDetailOpen}
@@ -3878,6 +4132,7 @@ function AppContent() {
           setPasswordModalOpen(false)
           setAdminPanelOpen(true)
         }}
+        isGamingMode={isGamingMode}
       />
       
       {/* Admin Panel Modal */}
@@ -3899,8 +4154,12 @@ function AppContent() {
         onExportData={handleExportData}
         onImportData={handleImportData}
         onResetToDefault={handleResetToDefault}
-        announcementText={announcementText}
-        onUpdateAnnouncement={setAnnouncementText}
+        announcementTexts={announcementTexts}
+        onAddAnnouncement={handleAddAnnouncement}
+        onEditAnnouncement={handleEditAnnouncement}
+        onDeleteAnnouncement={handleDeleteAnnouncement}
+        onReorderAnnouncements={handleReorderAnnouncements}
+        isGamingMode={isGamingMode}
       />
     </div>
   )

@@ -1,13 +1,11 @@
 // GenLayer Event Alarm Service Worker
 // This enables notifications even when the browser tab is in background
 
-self.addEventListener('install', (event) => {
-  console.log('[Service Worker] Installed')
+self.addEventListener('install', () => {
   self.skipWaiting()
 })
 
 self.addEventListener('activate', (event) => {
-  console.log('[Service Worker] Activated')
   event.waitUntil(self.clients.claim())
 })
 

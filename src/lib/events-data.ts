@@ -51,9 +51,9 @@ export const DAYS_ID: Record<string, string> = {
 
 // Discord Channel Links
 const DISCORD_LINKS = {
-  rumbleGartic: 'https://discord.com/events/1237055789441487021/1376951483253129418',
-  aiBlockchain: 'https://discord.com/events/1237055789441487021/1359535665745760349',
-  genfrenQuiz: 'https://discord.com/events/1237055789441487021/1365461413753262194',
+  rumbleGartic: 'https://discord.com/channels/1237055789441487021/1348760456310820884',
+  aiBlockchain: 'https://discord.com/channels/1237055789441487021/1247792755044782090',
+  genfrenQuiz: 'https://discord.com/channels/1237055789441487021/1366010056906379385',
   pokerChess: 'https://discord.com/events/1237055789441487021/1378808899351875595',
   regionalQuiz: 'https://discord.com/channels/1237055789441487021/1237114587124600933',
   quizIndonesia: 'https://discord.com/channels/1237055789441487021/1358856200187285625',
@@ -62,13 +62,14 @@ const DISCORD_LINKS = {
   xSpace: 'https://x.com/GenLayer',
   karaoke: 'https://discord.com/channels/1237055789441487021/1340340818367479861',
   others: 'https://discord.com/channels/1237055789441487021/1348760689879154699',
-  ama: 'https://discord.com/events/1237055789441487021/1361707202406256740',
-  vibecoding: 'https://discord.com/channels/1237055789441487021/1348760689879154699',
+  ama: 'https://x.com/GenLayer',
+  vibecoding: 'https://x.com/GenLayer',
   gentalks: 'https://x.com/GenLayer',
   smashkarts: 'https://discord.gg/x4Y8vNFZ?event=1348771725202165931',
-  neurocreative: 'https://discord.com/events/1237055789441487021/1380889328468754473',
-  memeContest: 'https://discord.com/events/1237055789441487021/1328747401095413831',
+  neurocreative: 'https://discord.com/channels/1237055789441487021/1348736285132587100',
+  memeContest: 'https://discord.com/channels/1237055789441487021/1348736285132587100',
   chesslayer: 'https://discord.com/events/1237055789441487021/1421422028715589763',
+  karaokeChannel: 'https://discord.com/channels/1237055789441487021/1340340818367479861',
 };
 
 // Helper to generate quiz XP rewards

@@ -52,10 +52,7 @@ const translations: Record<Language, Record<string, string>> = {
     'xpRewards': 'XP Rewards',
     'notes': 'Notes',
     'special': 'SPECIAL',
-    'joinEvent': 'Join Event',
-    'myAlarms': 'My Alarms',
-    'nextEvent': 'Next Event',
-    'noAlarms': 'No alarms set',
+    // joinEvent, myAlarms, nextEvent, noAlarms already defined above
     
     // Days
     'MONDAY': 'Monday',
@@ -138,10 +135,7 @@ const translations: Record<Language, Record<string, string>> = {
     'xpRewards': 'Hadiah XP',
     'notes': 'Catatan',
     'special': 'SPESIAL',
-    'joinEvent': 'Gabung Event',
-    'myAlarms': 'Alarm Saya',
-    'nextEvent': 'Event Berikutnya',
-    'noAlarms': 'Belum ada alarm disetel',
+    // joinEvent, myAlarms, nextEvent, noAlarms already defined above
     
     // Days
     'MONDAY': 'Senin',

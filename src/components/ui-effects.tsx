@@ -283,9 +283,12 @@ interface StatsCardProps {
   color: string
   isGamingMode: boolean
   delay?: number
+  formatValue?: (value: number) => string
 }
 
-export function StatsCard({ icon, value, label, color, isGamingMode, delay = 0 }: StatsCardProps) {
+export function StatsCard({ icon, value, label, color, isGamingMode, delay = 0, formatValue }: StatsCardProps) {
+  const displayValue = formatValue ? formatValue(value) : value.toLocaleString()
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -313,11 +316,12 @@ export function StatsCard({ icon, value, label, color, isGamingMode, delay = 0 }
       </motion.div>
       
       {/* Value */}
-      <AnimatedNumber 
-        value={value} 
+      <span 
         className={`relative z-10 text-2xl font-bold ${isGamingMode ? 'font-pixel' : ''}`}
-        duration={1500}
-      />
+        style={{ color }}
+      >
+        {displayValue}
+      </span>
       
       {/* Label */}
       <p 
@@ -334,10 +338,11 @@ interface SocialLinkProps {
   href: string
   icon: React.ReactNode
   label: string
+  color?: string
   isGamingMode: boolean
 }
 
-export function SocialLink({ href, icon, label, isGamingMode }: SocialLinkProps) {
+export function SocialLink({ href, icon, label, color, isGamingMode }: SocialLinkProps) {
   return (
     <motion.a
       href={href}
@@ -347,7 +352,7 @@ export function SocialLink({ href, icon, label, isGamingMode }: SocialLinkProps)
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
     >
-      <span className={isGamingMode ? 'text-[#00fff7]' : 'text-primary'}>{icon}</span>
+      <span style={color ? { color } : undefined} className={color ? undefined : (isGamingMode ? 'text-[#00fff7]' : 'text-primary')}>{icon}</span>
       <span className={`text-sm ${isGamingMode ? 'text-[#b8b8c8]' : 'text-muted-foreground'}`}>{label}</span>
     </motion.a>
   )
