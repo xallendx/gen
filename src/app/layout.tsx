@@ -36,12 +36,16 @@ export const metadata: Metadata = {
   keywords: ["GenLayer", "Events", "Alarm", "Schedule", "Web3", "Blockchain"],
   authors: [{ name: "GenLayer Community" }],
   icons: {
-    icon: "/logo.svg",
+    icon: [
+      { url: "/genlayer-logo.jpg", type: "image/jpeg", sizes: "any" },
+    ],
+    apple: "/genlayer-logo.jpg",
   },
   openGraph: {
     title: "GenLayer Event Alarm",
     description: "Track GenLayer weekly events with countdown timer",
     type: "website",
+    images: ["/genlayer-logo.jpg"],
   },
 };
 
