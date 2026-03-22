@@ -253,7 +253,7 @@ function ThemeToggle() {
     <Button 
       variant="outline" 
       size="sm" 
-      className={`w-10 h-10 p-0 pixel-button ${isGamingMode ? 'border-3 border-[#ffd700] bg-[#12121a] hover:bg-[#ffd700]/20' : 'border border-border bg-card hover:bg-muted'}`}
+      className={`w-10 h-10 p-0 pixel-button touchable ${isGamingMode ? 'border-3 border-[#ffd700] bg-[#12121a] hover:bg-[#ffd700]/20' : 'border border-border bg-card hover:bg-muted'}`}
       onClick={toggleTheme}
       title={isGamingMode ? 'Switch to Normal Mode' : 'Switch to Gaming Mode'}
     >
@@ -275,7 +275,7 @@ function LanguageToggle({ isGamingMode }: { isGamingMode: boolean }) {
     <Button 
       variant="outline" 
       size="sm" 
-      className={`gap-1.5 text-xs ${isGamingMode ? 'border-3 border-[#ff00ff] bg-[#12121a] hover:bg-[#ff00ff]/20 font-bold' : ''}`}
+      className={`gap-1.5 text-xs h-10 min-h-[40px] px-3 touchable ${isGamingMode ? 'border-3 border-[#ff00ff] bg-[#12121a] hover:bg-[#ff00ff]/20 font-bold' : ''}`}
       onClick={() => setLanguage(language === 'id' ? 'en' : 'id')}
     >
       <Globe className={`w-4 h-4 ${isGamingMode ? 'text-[#ff00ff]' : 'text-primary'}`} />
@@ -3317,32 +3317,73 @@ function AppContent() {
               </motion.a>
             </div>
           </div>
+          
+          {/* Mobile Social Links - Only visible on very small screens */}
+          <div className="flex sm:hidden items-center justify-center gap-2 mt-2 pt-2 border-t border-dashed border-[#2a2a4e]/50">
+            <motion.a
+              href="https://discord.gg/NVuX2YyxGw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center w-8 h-8 transition-all ${isGamingMode ? 'text-[#5865F2] hover:bg-[#5865F2]/10 border border-[#5865F2]/30' : 'text-foreground hover:bg-muted rounded border border-border'}`}
+              whileTap={{ scale: 0.95 }}
+            >
+              <MessageCircle className="w-4 h-4" />
+            </motion.a>
+            <motion.a
+              href="https://x.com/GenLayer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center w-8 h-8 transition-all ${isGamingMode ? 'text-[#1DA1F2] hover:bg-[#1DA1F2]/10 border border-[#1DA1F2]/30' : 'text-foreground hover:bg-muted rounded border border-border'}`}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Twitter className="w-4 h-4" />
+            </motion.a>
+            <motion.a
+              href="https://genlayer.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center w-8 h-8 transition-all ${isGamingMode ? 'text-[#00fff7] hover:bg-[#00fff7]/10 border border-[#00fff7]/30' : 'text-foreground hover:bg-muted rounded border border-border'}`}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ExternalLink className="w-4 h-4" />
+            </motion.a>
+            <motion.a
+              href="https://portal.genlayer.foundation/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center w-8 h-8 transition-all ${isGamingMode ? 'text-[#39ff14] hover:bg-[#39ff14]/10 border border-[#39ff14]/30' : 'text-foreground hover:bg-muted rounded border border-border'}`}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Globe className="w-4 h-4" />
+            </motion.a>
+          </div>
         </div>
 
         {/* Admin Controls - Only visible for admin users (localhost or secret URL) */}
+        {/* On mobile: shown below header, on desktop: absolute positioned */}
         {isAdminAccess && (
-          <div className="absolute top-2 right-2 flex items-center gap-1 z-50">
+          <div className={`flex items-center gap-1 z-50 ${isGamingMode ? 'bg-[#0a0a0f]/95' : 'bg-background/95'} md:absolute md:top-2 md:right-2 md:bg-transparent`}>
             <Button
               variant="outline"
               size="sm"
-              className={`h-7 text-[10px] px-2 font-bold ${demoMode ? 'border-red-500 text-red-400 bg-red-500/20' : 'border-[#ff00ff] text-[#ff00ff] bg-[#ff00ff]/20 hover:bg-[#ff00ff]/30'}`}
+              className={`h-8 min-h-[36px] text-[10px] px-2 font-bold ${demoMode ? 'border-red-500 text-red-400 bg-red-500/20' : 'border-[#ff00ff] text-[#ff00ff] bg-[#ff00ff]/20 hover:bg-[#ff00ff]/30'}`}
               onClick={() => setDemoMode(!demoMode)}
             >
-              {demoMode ? '🔴 DEMO ON' : 'DEMO'}
+              {demoMode ? '🔴 DEMO' : 'DEMO'}
             </Button>
             <Button
               variant="outline"
               size="sm"
-              className={`h-7 text-[10px] px-2 font-bold ${adminMode ? 'border-green-500 text-green-400 bg-green-500/20' : 'border-[#ffd700] text-[#ffd700] bg-[#ffd700]/20 hover:bg-[#ffd700]/30'}`}
+              className={`h-8 min-h-[36px] text-[10px] px-2 font-bold ${adminMode ? 'border-green-500 text-green-400 bg-green-500/20' : 'border-[#ffd700] text-[#ffd700] bg-[#ffd700]/20 hover:bg-[#ffd700]/30'}`}
               onClick={() => setAdminMode(!adminMode)}
             >
-              {adminMode ? '🟢 ADMIN ON' : 'ADMIN'}
+              {adminMode ? '🟢 ADMIN' : 'ADMIN'}
             </Button>
             {adminMode && (
               <Button
                 variant="outline"
                 size="sm"
-                className="h-7 text-[10px] px-2 font-bold border-cyan-500 text-cyan-400 bg-cyan-500/20 hover:bg-cyan-500/30"
+                className="h-8 min-h-[36px] text-[10px] px-2 font-bold border-cyan-500 text-cyan-400 bg-cyan-500/20 hover:bg-cyan-500/30"
                 onClick={() => setPasswordModalOpen(true)}
               >
                 ⚙️ MANAGE
@@ -3727,7 +3768,7 @@ function AppContent() {
             </div>
 
             {/* Countdown */}
-            <div className="mt-6 grid grid-cols-4 gap-3">
+            <div className="mt-6 grid grid-cols-4 gap-3 countdown-grid">
               {[
                 { value: countdown.days, label: t('days'), color: isGamingMode ? '#00fff7' : undefined },
                 { value: countdown.hours, label: t('hours'), color: isGamingMode ? '#ff00ff' : undefined },

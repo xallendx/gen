@@ -371,8 +371,8 @@
 /* Mobile Improvements */
 @media (max-width: 768px) {
   /* Smaller pixel fonts on mobile */
-  .font-pixel { font-size: 0.75rem !important; }
-  .font-pixel-body { font-size: 0.9rem !important; }
+  .font-pixel { font-size: 0.65rem !important; }
+  .font-pixel-body { font-size: 0.85rem !important; }
   
   /* Neon text without glow on mobile for performance */
   .neon-text-cyan, .neon-text-magenta, .neon-text-lime, .neon-text-gold {
@@ -384,23 +384,84 @@
   .pulse-neon { animation: none !important; }
   .float { animation: none !important; }
   
-  /* Better touch targets */
-  button, a { min-height: 44px; min-width: 44px; }
+  /* Better touch targets - minimum 44px */
+  button, 
+  a, 
+  [role="button"],
+  .touchable {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+  
+  /* Small icon-only buttons can be smaller but still accessible */
+  button.p-0, 
+  button[class*="p-1"],
+  .icon-button {
+    min-height: 36px !important;
+    min-width: 36px !important;
+  }
   
   /* Smaller header on mobile */
-  header h1 { font-size: 1rem !important; }
-  header p { font-size: 0.7rem !important; }
+  header h1 { font-size: 0.75rem !important; }
+  header p { font-size: 0.6rem !important; }
   
   /* Stack header actions on very small screens */
   .header-actions { flex-wrap: wrap; gap: 0.5rem; }
   
-  /* Full-width cards on mobile */
-  .grid-cols-2 { grid-template-columns: 1fr !important; }
-  .grid-cols-4 { grid-template-columns: repeat(2, 1fr) !important; }
+  /* Grid layouts - preserve some 2-column layouts for stats */
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
   
   /* Larger text for readability */
-  .text-xs { font-size: 0.8rem !important; }
-  .text-sm { font-size: 0.9rem !important; }
+  .text-xs { font-size: 0.75rem !important; }
+  .text-sm { font-size: 0.85rem !important; }
+  .text-base { font-size: 0.95rem !important; }
+  
+  /* Ensure readable font sizes */
+  body { font-size: 14px !important; }
+  
+  /* Fix marquee text overflow */
+  .animate-marquee {
+    animation-duration: 15s !important;
+  }
+  
+  /* Reduce padding on mobile for more space */
+  .p-5 { padding: 1rem !important; }
+  .p-4 { padding: 0.75rem !important; }
+  
+  /* Improve modal/dialog on mobile */
+  [data-slot="dialog-content"] {
+    max-width: 95vw !important;
+    margin: 0.5rem !important;
+    max-height: 90vh !important;
+  }
+  
+  /* Fix countdown grid on mobile */
+  .countdown-grid { 
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+  
+  /* Tab buttons - make them more compact */
+  [role="tab"] {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.7rem !important;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+  /* Even more compact for very small phones */
+  .font-pixel { font-size: 0.55rem !important; }
+  header h1 { font-size: 0.65rem !important; }
+  
+  /* Compact countdown */
+  .countdown-grid { gap: 0.25rem !important; }
+  
+  /* Compact tabs */
+  [role="tab"] {
+    padding: 0.375rem 0.5rem !important;
+    font-size: 0.6rem !important;
+  }
 }
 
 /* Prevent horizontal scroll */
