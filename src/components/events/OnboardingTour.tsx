@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ChevronRight, ChevronLeft, Bell, Calendar, Search, Gamepad2, Sun, Settings } from 'lucide-react'
+import { X, ChevronRight, ChevronLeft, Bell, Calendar, Search, Gamepad2, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 interface OnboardingStep {
@@ -36,12 +36,6 @@ const steps: OnboardingStep[] = [
     description: 'Toggle between Gaming Mode (dark neon theme) and Normal Mode (clean light theme) using the toggle button.',
     icon: <Gamepad2 className="w-12 h-12" />,
     color: '#ffd700'
-  },
-  {
-    title: 'Admin Mode',
-    description: 'Enable ADMIN mode to access the admin panel. Manage events, roles, and settings. Default password: admin123',
-    icon: <Settings className="w-12 h-12" />,
-    color: '#ff0040'
   }
 ]
 
