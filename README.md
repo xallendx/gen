@@ -36,10 +36,12 @@ npm run start
 Access the admin panel with secret URL parameter:
 
 ```
-https://your-domain.com/?admin=gl2024secret
+https://your-domain.com/?admin=d85904188d15ca91cbae9bf00467c5da
 ```
 
-Default admin password: `genlayer2024!`
+**Default Password:** `9VjgRoWmVwyyXd8ohTdg`
+
+> ⚠️ **Security Note:** Change the admin password immediately after first login.
 
 ## 📦 Tech Stack
 
