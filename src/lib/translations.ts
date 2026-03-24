@@ -6,7 +6,7 @@ export const translations = {
   en: {
     // Header
     title: 'GenLayer Event Alarm',
-    date: 'February 2026',
+    date: 'March 2025',
     utc: 'UTC',
     wib: 'WIB',
     
@@ -80,7 +80,7 @@ export const translations = {
   id: {
     // Header
     title: 'Alarm Event GenLayer',
-    date: 'Februari 2026',
+    date: 'Maret 2025',
     utc: 'UTC',
     wib: 'WIB',
     
