@@ -9,9 +9,9 @@ export interface XPReward {
 export function formatRank(position: string): string {
   // Map special positions to their formatted display
   const rankMap: Record<string, string> = {
-    'Top 1': '🥇',
-    'Top 2': '🥈',
-    'Top 3': '🥉',
+    'Top 1': '🥇 1st',
+    'Top 2': '🥈 2nd',
+    'Top 3': '🥉 3rd',
     'Honorary': '✨ Honorary',
     'Honorable': '✨ Honorable',
     'Random Members': '🎲 Random Members',
