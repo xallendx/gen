@@ -5,6 +5,58 @@ export interface XPReward {
   xp: number;
 }
 
+// Format rank position with emoji and proper display text
+export function formatRank(position: string): string {
+  // Map special positions to their formatted display
+  const rankMap: Record<string, string> = {
+    'Top 1': '🥇',
+    'Top 2': '🥈',
+    'Top 3': '🥉',
+    'Honorary': '✨ Honorary',
+    'Honorable': '✨ Honorable',
+    'Random Members': '🎲 Random Members',
+    'Rumble Top 1': '🎮 Rumble 1st',
+    'Rumble Top 2-5': '🎮 Rumble 2nd-5th',
+  };
+
+  // Check if position is in the map
+  if (rankMap[position]) {
+    return rankMap[position];
+  }
+
+  // Handle "Top X" format for positions 4 and above
+  const topMatch = position.match(/^Top (\d+)$/);
+  if (topMatch) {
+    const num = parseInt(topMatch[1]);
+    const ordinal = getOrdinal(num);
+    return `🏅 ${ordinal}`;
+  }
+
+  // Handle "Top X-Y" format (ranges)
+  const rangeMatch = position.match(/^Top (\d+)-(\d+)$/);
+  if (rangeMatch) {
+    const start = parseInt(rangeMatch[1]);
+    const end = parseInt(rangeMatch[2]);
+    return `🏅 ${start}${getOrdinal(start)}-${end}${getOrdinal(end)}`;
+  }
+
+  // Handle "X/10" format (quiz scores)
+  const scoreMatch = position.match(/^(\d+)\/10$/);
+  if (scoreMatch) {
+    return `📝 ${position}`;
+  }
+
+  // Return original if no match
+  return position;
+}
+
+// Helper function to get ordinal suffix
+function getOrdinal(n: number): string {
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
 export interface Event {
   id: string;
   name: string;

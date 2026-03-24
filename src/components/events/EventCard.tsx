@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Clock, Bell, Trophy } from 'lucide-react'
 import { RoleBadgeTooltip } from '@/components/role-badge-tooltip'
 import type { Event } from '@/lib/events-data'
+import { formatRank } from '@/lib/events-data'
 
 interface EventCardProps {
   event: Event
@@ -129,7 +130,7 @@ export function EventCard({
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-3 gap-y-1">
               {event.xpRewards.slice(0, 6).map((reward, idx) => (
                 <div key={idx} className="flex items-center justify-between text-sm">
-                  <span className={`${isGamingMode ? 'text-[#8888aa]' : 'text-muted-foreground'}`}>{reward.position}</span>
+                  <span className={`${isGamingMode ? 'text-[#8888aa]' : 'text-muted-foreground'}`}>{formatRank(reward.position)}</span>
                   <span className={`font-bold ${isGamingMode ? 'text-[#39ff14]' : 'text-green-600 dark:text-green-400'}`}>
                     {reward.xp > 0 ? `${reward.xp.toLocaleString()} XP` : 'XP'}
                   </span>

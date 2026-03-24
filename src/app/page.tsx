@@ -35,7 +35,8 @@ import {
   events, roles, functionalRoles, DAYS,
   getTodayEvents, getNextEvent,
   xpPoapSources, monthlyContributorHighlights, importantNotes,
-  type Event, type Role, type FunctionalRole
+  type Event, type Role, type FunctionalRole,
+  formatRank
 } from '@/lib/events-data'
 import { LanguageProvider, useLanguage, useDayName } from '@/lib/language-context'
 import { PressStart } from '@/components/PressStart'
@@ -564,7 +565,7 @@ function EventDetailModal({
                 <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                   {event.xpRewards.map((reward, idx) => (
                     <div key={idx} className={`flex items-center justify-between text-sm p-1 ${isGamingMode ? 'hover:bg-[#39ff14]/10' : 'hover:bg-muted/50 rounded'}`}>
-                      <span className={isGamingMode ? 'text-[#8888aa]' : 'text-muted-foreground'}>{reward.position}</span>
+                      <span className={isGamingMode ? 'text-[#8888aa]' : 'text-muted-foreground'}>{formatRank(reward.position)}</span>
                       <span className={`font-bold ${isGamingMode ? 'text-[#39ff14]' : 'text-green-600 dark:text-green-400'}`}>
                         {reward.xp > 0 ? `${reward.xp.toLocaleString('en-US')} XP` : 'XP'}
                       </span>
@@ -3810,7 +3811,7 @@ function AppContent() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1">
                     {nextEvent.xpRewards.map((reward, idx) => (
                       <div key={idx} className={`flex items-center justify-between text-sm p-1 ${isGamingMode ? 'hover:bg-[#39ff14]/10' : 'hover:bg-muted/50 rounded'}`}>
-                        <span className={isGamingMode ? 'text-[#8888aa]' : 'text-muted-foreground'}>{reward.position}</span>
+                        <span className={isGamingMode ? 'text-[#8888aa]' : 'text-muted-foreground'}>{formatRank(reward.position)}</span>
                         <span className={`font-bold ${isGamingMode ? 'text-[#39ff14]' : 'text-green-600 dark:text-green-400'}`}>
                           {reward.xp > 0 ? `${reward.xp.toLocaleString('en-US')} XP` : 'XP'}
                         </span>
